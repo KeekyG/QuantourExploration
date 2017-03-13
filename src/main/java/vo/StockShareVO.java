@@ -1,27 +1,23 @@
-package po;
+package vo;
 
 import java.util.Date;
 
 /**
- * @author ssw
+ * @author ssw's father
  * 
- * serial	记录编号
+ * 用来画k线图和股票比较的VO
+ * 
  * date     日期
  * open     开盘指数
  * high     最高指数
  * low      最低指数
  * close    收盘指数
- * volume   成交量
- * adjClose 复权后的收盘指数
  * code     股票代码
  * name     股票名称
  * market   市场名称
  *
  */
-public class StockUpDownPO {
-	
-	private int serial;
-	
+public class StockShareVO { 
 	private Date date;
 	
 	private double open;
@@ -32,35 +28,23 @@ public class StockUpDownPO {
 	
 	private double close;
 	
-	private long volume;
-	
-	private double adjClose;
-	
 	private String code;
 	
 	private String name;
 	
 	private String market;
 	
-	public StockUpDownPO(int serial,Date date,double open,double high,double low,double close,
-			long volume,double adjClose,String code,String name,String market){
-		this.serial = serial;
+	public StockShareVO(Date date, double open, double high, double low, double close, String code, String name, String market) {
 		this.date = date;
 		this.open = open;
 		this.high = high;
 		this.low = low;
 		this.close = close;
-		this.volume = volume;
-		this.adjClose = adjClose;
 		this.code = code;
 		this.name = name;
 		this.market = market;
 	}
-
-	public int getSerial() {
-		return serial;
-	}
-
+	
 	public Date getDate() {
 		return date;
 	}
@@ -81,14 +65,6 @@ public class StockUpDownPO {
 		return close;
 	}
 
-	public long getVolume() {
-		return volume;
-	}
-
-	public double getAdjClose() {
-		return adjClose;
-	}
-
 	public String getCode() {
 		return code;
 	}
@@ -100,5 +76,5 @@ public class StockUpDownPO {
 	public String getMarket() {
 		return market;
 	}
-	
+
 }

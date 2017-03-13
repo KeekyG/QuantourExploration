@@ -6,7 +6,7 @@ import java.util.HashMap;
 public interface StockNameDao {
 
 	/**
-	 * @return  获取股票名称
+	 * @return  获取股票名称(左name,右code)
 	 */
 	public HashMap<String, String> getStockName();
 	
