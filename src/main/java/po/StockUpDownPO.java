@@ -41,6 +41,21 @@ public class StockUpDownPO {
 	private String name;
 	
 	private String market;
+	
+	public StockUpDownPO(int serial,Date date,double open,double high,double low,double close,
+			long volume,double adjClose,String code,String name,String market){
+		this.serial = serial;
+		this.date = date;
+		this.open = open;
+		this.high = high;
+		this.low = low;
+		this.close = close;
+		this.volume = volume;
+		this.adjClose = adjClose;
+		this.code = code;
+		this.name = name;
+		this.market = market;
+	}
 
 	public int getSerial() {
 		return serial;
