@@ -24,7 +24,7 @@ public class StockDaoImpl implements StockDao{
 		while (record.readRecord()) {
 			record.getRawRecord();
 			if(record.get("code").equals(code)){
-			    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm/dd/yyyy");
+			    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yy");
 				Date date = simpleDateFormat.parse(record.get("Date"));
 				if(start.before(date) && end.after(date)){
 					stockUpDownPOs.add(new StockUpDownPO(Integer.parseInt(record.get("Serial")),date,Double.valueOf(record.get("Open")),
@@ -52,7 +52,7 @@ public class StockDaoImpl implements StockDao{
 			record.readHeaders();
 			while (record.readRecord()) {
 				record.getRawRecord();
-				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm/dd/yyyy");
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yy");
 				Date d = simpleDateFormat.parse(record.get("Date"));
 				if(d.equals(date)){
 					stockUpDownPOs.add(new StockUpDownPO(Integer.parseInt(record.get("Serial")),date,Double.valueOf(record.get("Open")),

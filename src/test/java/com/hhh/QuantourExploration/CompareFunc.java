@@ -1,6 +1,6 @@
 package com.hhh.QuantourExploration;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * compare two different stocks and draw a pic to show their difference

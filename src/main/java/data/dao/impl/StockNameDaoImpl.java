@@ -26,10 +26,8 @@ public class StockNameDaoImpl implements StockNameDao{
 		}
 		record.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return stockNames;
@@ -43,14 +41,14 @@ public class StockNameDaoImpl implements StockNameDao{
 		record.readHeaders();
 		while (record.readRecord()) {
 			record.getRawRecord();
-			stockCodes.add(record.get("code"));
+			if(!stockCodes.contains(record.get("code"))){
+				stockCodes.add(record.get("code"));
+			}
 		}
 		record.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return stockCodes;

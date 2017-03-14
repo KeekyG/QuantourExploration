@@ -12,7 +12,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;  
 import java.awt.Dimension;  
 import java.awt.geom.Ellipse2D;
-import java.sql.Date;
+import java.util.Date;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 

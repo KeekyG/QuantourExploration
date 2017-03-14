@@ -1,13 +1,20 @@
 package com.hhh.QuantourExploration;
 
-import java.sql.Date;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class Test {
-	@SuppressWarnings("deprecation")
 	public static void main(String args[]){
-		Date day1 = new Date(2012, 3, 5);
-		Date day2 = new Date(2012, 3, 15);
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yy");
+		Date day1 = null;
+		Date day2 = null;
+		try{	
+			day1 = simpleDateFormat.parse("01/19/10");
+			day2 = simpleDateFormat.parse("01/30/10");
+		}catch (Exception e) {
+			e.printStackTrace();// TODO: handle exception
+		}
 		CompareFuncTest compareFuncTest = new CompareFuncTest();
-		compareFuncTest.drawDiff("SweetStar", "Wonder", day1, day2);
+		compareFuncTest.drawDiff("2103", "2220", day1, day2);
 	}
 }
