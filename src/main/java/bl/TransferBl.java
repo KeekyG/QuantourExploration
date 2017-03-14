@@ -18,7 +18,7 @@ public class TransferBl implements TransferBlService {
 
 	@Override
 	public StockShareVO toStockShareVO(StockUpDownPO po) {
-		return new StockShareVO(po.getDate(), po.getOpen(), po.getHigh(), po.getLow(), po.getClose(), po.getCode(), po.getName(), po.getMarket());
+		return new StockShareVO(po.getDate(), po.getOpen(), po.getHigh(), po.getLow(), po.getClose(), po.getVolume(), po.getCode(), po.getName(), po.getMarket());
 	}
 
 	@Override
