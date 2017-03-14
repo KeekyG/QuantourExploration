@@ -33,16 +33,26 @@ import org.jfree.ui.ApplicationFrame;
 
 import po.StockUpDownPO;  
   
-public class LineChartDemo1 extends ApplicationFrame {
+public class LineChartDemo1{
 	
     private ArrayList<StockUpDownPO> Stock1;
     private ArrayList<StockUpDownPO> Stock2;
-	private static final long serialVersionUID = 1L;
 
-	public LineChartDemo1(String stock1, String stock2, Date day1, Date day2) {
-		super("Differences between " + stock1 + " and " + stock2); 
-    }
+//	public LineChartDemo1(String stock1, String stock2, Date day1, Date day2) {
+//		super("Differences between " + stock1 + " and " + stock2); 
+//		Stock1 = search(stock1, day1, day2);
+//		Stock2 = search(stock2, day1, day2);
+//    }
+//	
 	
+	public LineChartDemo1(String stock1, String stock2, Date day1, Date day2) {
+		Stock1 = search(stock1, day1, day2);
+		Stock2 = search(stock2, day1, day2);
+    }
+	private ArrayList<StockUpDownPO> search(String stock, Date day1, Date day2){
+		ArrayList<StockUpDownPO> stockUpDownPOs = new ArrayList<>();
+		return stockUpDownPOs;
+	}
 	
 //	public double LogYield(ArrayList<StockUpDownPO> Stock){
 //		for(StockUpDownPO stock: Stock){
