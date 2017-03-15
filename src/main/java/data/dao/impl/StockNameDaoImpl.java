@@ -16,15 +16,15 @@ public class StockNameDaoImpl implements StockNameDao{
 		CsvReader record = null;
 		HashMap<String, String> stockNames = new HashMap<String,String>();
 		try {
-		record = new CsvReader("C://Users/ssw/Desktop/量化交易/股票历史数据ALL.csv", '	',Charset.forName("UTF8"));
-		record.readHeaders();
-		while (record.readRecord()) {
-			record.getRawRecord();
-			if(!stockNames.containsKey(record.get("name"))){
-				stockNames.put(record.get("name"),record.get("code"));
+			record = new CsvReader("H://大二下/软工三/股票历史数据ALL.csv", '	',Charset.forName("UTF8"));
+			record.readHeaders();
+			while (record.readRecord()) {
+				record.getRawRecord();
+				if(!stockNames.containsKey(record.get("name"))){
+					stockNames.put(record.get("name"),record.get("code"));
+				}
 			}
-		}
-		record.close();
+			record.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}catch (IOException e) {
@@ -37,7 +37,7 @@ public class StockNameDaoImpl implements StockNameDao{
 		CsvReader record = null;
 		ArrayList<String> stockCodes = new ArrayList<String>();
 		try {
-		record = new CsvReader("C://Users/ssw/Desktop/量化交易/股票历史数据ALL.csv", '	',Charset.forName("UTF8"));
+		record = new CsvReader("H://大二下/软工三/股票历史数据ALL.csv", '	',Charset.forName("UTF8"));
 		record.readHeaders();
 		while (record.readRecord()) {
 			record.getRawRecord();
