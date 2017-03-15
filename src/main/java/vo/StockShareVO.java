@@ -12,6 +12,7 @@ import java.util.Date;
  * high     最高指数
  * low      最低指数
  * close    收盘指数
+ * adjClose 复权收盘价
  * volume   交易量
  * code     股票代码
  * name     股票名称
@@ -29,6 +30,8 @@ public class StockShareVO {
 	
 	private double close;
 	
+	private double adjClose;
+	
 	private long volume;
 	
 	private String code;
@@ -37,12 +40,13 @@ public class StockShareVO {
 	
 	private String market;
 	
-	public StockShareVO(Date date, double open, double high, double low, double close, long volume, String code, String name, String market) {
+	public StockShareVO(Date date, double open, double high, double low, double close, double adjClose, long volume, String code, String name, String market) {
 		this.date = date;
 		this.open = open;
 		this.high = high;
 		this.low = low;
 		this.close = close;
+		this.adjClose = adjClose;
 		this.volume = volume;
 		this.code = code;
 		this.name = name;
@@ -85,5 +89,8 @@ public class StockShareVO {
 		return volume;
 	}
 
+	public double getAdjClose() {
+		return adjClose;
+	}
 
 }

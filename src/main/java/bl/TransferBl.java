@@ -13,12 +13,12 @@ public class TransferBl implements TransferBlService {
 
 	@Override
 	public DailyStockVO toDailyStockVO(StockUpDownPO po) {
-		return new DailyStockVO(po.getDate(), po.getOpen(), po.getClose(), po.getVolume(), po.getCode(), po.getName(), po.getMarket());
+		return new DailyStockVO(po.getDate(), po.getOpen(), po.getClose(), po.getAdjClose(), po.getVolume(), po.getCode(), po.getName(), po.getMarket());
 	}
 
 	@Override
 	public StockShareVO toStockShareVO(StockUpDownPO po) {
-		return new StockShareVO(po.getDate(), po.getOpen(), po.getHigh(), po.getLow(), po.getClose(), po.getVolume(), po.getCode(), po.getName(), po.getMarket());
+		return new StockShareVO(po.getDate(), po.getOpen(), po.getHigh(), po.getLow(), po.getClose(), po.getAdjClose(), po.getVolume(), po.getCode(), po.getName(), po.getMarket());
 	}
 
 	@Override

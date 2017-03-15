@@ -10,6 +10,7 @@ import java.util.Date;
  * date     日期
  * open     开盘指数
  * close    收盘指数
+ * adjClose 复权收盘价
  * volume   成交量
  * code     股票代码
  * name     股票名称
@@ -24,6 +25,8 @@ public class DailyStockVO {
 	
 	private double close;
 	
+	private double adjClose;
+	
 	private long volume;
 	
 	private String code;
@@ -32,10 +35,11 @@ public class DailyStockVO {
 	
 	private String market;
 	
-	public DailyStockVO(Date date, double open, double close, long volume, String code, String name, String market) {
+	public DailyStockVO(Date date, double open, double close, double adjClose, long volume, String code, String name, String market) {
 		this.date = date;
 		this.open = open;
 		this.close = close;
+		this.adjClose = adjClose;
 		this.volume = volume;
 		this.code = code;
 		this.name = name;
@@ -69,4 +73,9 @@ public class DailyStockVO {
 	public String getMarket() {
 		return market;
 	}
+
+	public double getAdjClose() {
+		return adjClose;
+	}
+
 }
