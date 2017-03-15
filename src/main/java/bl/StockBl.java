@@ -8,20 +8,19 @@ import java.util.stream.Collectors;
 import blService.StockBlService;
 import blService.TransferBlService;
 import data.dao.StockDao;
-import data.dao.StockNameDao;
 import data.dao.impl.StockDaoImpl;
-import data.dao.impl.StockNameDaoImpl;
 import po.StockUpDownPO;
 import vo.ShareLineVO;
+import vo.StockCodesVO;
 import vo.StockShareVO;
 
 public class StockBl implements StockBlService {
 
 	private StockDao stockDao;
-
-	private StockNameDao stockNameDao;
 	
 	private TransferBlService transferBlService;
+	
+	private StockCodesVO stockCodesVO;
 
 	private ArrayList<String> codeList;
 
@@ -31,10 +30,10 @@ public class StockBl implements StockBlService {
 
 	public StockBl() {
 		stockDao = new StockDaoImpl();
-		stockNameDao = new StockNameDaoImpl();
+		stockCodesVO = StockCodesVO.getInstance();
 		transferBlService = new TransferBl();
-		codeList = stockNameDao.getStockCode();
-		nameMap = stockNameDao.getStockName();
+		codeList = stockCodesVO.getCodeList();
+		nameMap = stockCodesVO.getNameMap();
 		nameList = new ArrayList<>();
 		nameList.addAll(nameMap.keySet());
 	}
