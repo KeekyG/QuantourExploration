@@ -78,7 +78,7 @@ public class WriteCsv {
 			while (record.readRecord()) {
 				record.getRawRecord();
 				if(!record.get("Volume").equals("0")){
-					String[] contents = {qj2bj(String.valueOf(flag)),qj2bj(record.get("Open")),qj2bj(record.get("High")),
+					String[] contents = {qj2bj(String.valueOf(flag)),qj2bj(record.get("Date")),qj2bj(record.get("Open")),qj2bj(record.get("High")),
 							qj2bj(record.get("Low")),qj2bj(record.get("Close")),qj2bj(record.get("Volume")),qj2bj(record.get("Adj Close")),qj2bj(record.get("code")),qj2bj(record.get("name")),qj2bj(record.get("market"))};
 					writer.writeRecord(contents);
 					flag++;
