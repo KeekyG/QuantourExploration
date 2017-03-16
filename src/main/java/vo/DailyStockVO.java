@@ -13,7 +13,7 @@ import java.util.Date;
  * adjClose 复权收盘价
  * volume   成交量
  * code     股票代码
- * name     股票名称
+ * name     股票的名称
  * market   市场名称
  *
  */
