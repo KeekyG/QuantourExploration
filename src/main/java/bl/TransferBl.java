@@ -22,8 +22,8 @@ public class TransferBl implements TransferBlService {
 	}
 
 	@Override
-	public ShareLineVO toShareLineVO(ArrayList<StockShareVO> shareVOs, Date beginDate, Date endDate, String code, String name) {
-		return new ShareLineVO(shareVOs, beginDate, endDate, code, name, null);
+	public ShareLineVO toShareLineVO(ArrayList<StockShareVO> shareVOs, Date beginDate, Date endDate, String code, String name, StockShareVO yesterdayShare) {
+		return new ShareLineVO(shareVOs, beginDate, endDate, code, name, yesterdayShare);
 	}
 
 }

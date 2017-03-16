@@ -14,6 +14,6 @@ public interface TransferBlService {
 	
 	public StockShareVO toStockShareVO(StockUpDownPO po);
 	
-	public ShareLineVO toShareLineVO(ArrayList<StockShareVO> shareVOs, Date beginDate, Date endDate, String code, String name);
+	public ShareLineVO toShareLineVO(ArrayList<StockShareVO> shareVOs, Date beginDate, Date endDate, String code, String name, StockShareVO yesterdayShare);
 	
 }
