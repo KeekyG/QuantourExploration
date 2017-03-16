@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 import java.util.Date;
 import java.text.DecimalFormat;
 
@@ -29,114 +30,91 @@ import org.jfree.data.category.CategoryDataset;
 
 import com.hhh.QuantourExploration.LineChartDemo1;
 
+import vo.StockShareVO;
+
 public class CompareFuncTest implements CompareFunc{
 
 	private LineChartDemo1 lineChartDemo1;
-	@Override
-	public void drawDiff(String stock1, String stock2, Date day1, Date day2) {
-		// TODO Auto-generated method stub
-		
-		//修改文字编码格式
-        StandardChartTheme theme = new StandardChartTheme("unicode") {  
-            public void apply(JFreeChart chart) {  
-                chart.getRenderingHints().put(RenderingHints.KEY_TEXT_ANTIALIASING,  
-                        RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);  
-                super.apply(chart);  
-            }  
-        };
-        theme.setExtraLargeFont(new Font("微软雅黑", Font.PLAIN, 20));  
-        theme.setLargeFont(new Font("微软雅黑", Font.PLAIN, 14));  
-        theme.setRegularFont(new Font("微软雅黑", Font.PLAIN, 12));  
-        theme.setSmallFont(new Font("微软雅黑", Font.PLAIN, 10));  
-        ChartFactory.setChartTheme(theme); 
-        
-		lineChartDemo1 = new LineChartDemo1(stock1, stock2, day1, day2);
-		JPanel lastValue = drawLastValue();
-		JPanel maxValue = drawMaxValue();
-		JPanel minValue = drawMinValue();
-		JPanel logValue = drawLogValue();
-		lastValue.setSize(400, 500);
-		maxValue.setSize(400, 500);
-		minValue.setSize(400, 500);
-		logValue.setSize(400, 500);
-		double var1 = lineChartDemo1.calVariance1();
-		double var2 = lineChartDemo1.calVariance2();
-		DecimalFormat decimalFormat = new DecimalFormat("##.##");
-		JTextPane textPane = new JTextPane();
-		textPane.setText("Variance of " + stock1 + "'s Log Field is " + decimalFormat.format(var1) + "\nVariance of " + 
-										stock2 + "'s Log Field is " + decimalFormat.format(var2));
-		logValue.add(textPane);
-        JFrame frame = new JFrame("Differences between " + stock1 + " and " + stock2);
-        frame.setLayout(new GridLayout(2, 2));
-        frame.getContentPane().add(lastValue);
-        frame.setSize(800, 600);
-        frame.getContentPane().add(maxValue);
-        frame.getContentPane().add(minValue);
-        frame.getContentPane().add(logValue);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+	private ArrayList<StockShareVO> stockShareVOs1;
+	private ArrayList<StockShareVO> stockShareVOs2;
+	private String stock1;
+	private String stock2;
+	
+	public CompareFuncTest(String stock1, String stock2, Date day1, Date day2) {
+		// TODO Auto-generated constructor stub
+		lineChartDemo1 = new LineChartDemo1();
+		this.stock1 = stock1;
+		this.stock2 = stock2;
+		stockShareVOs1 = lineChartDemo1.getStock(stock1, day1, day2);
+		stockShareVOs2 = lineChartDemo1.getStock(stock2, day1, day2);
 	}
-
-	/**
-	 * 画出day1到day2期间股票的每日收盘价的比较折线图
-	 * @param stock1
-	 * @param stock2
-	 * @param day1
-	 * @param day2
-	 * @return
-	 */
-	private JPanel drawLastValue(){
-		CategoryDataset dataset = lineChartDemo1.createLastDataset();
+	
+	public JPanel drawLastValue(){
+		CategoryDataset dataset = lineChartDemo1.createLastDataset(stockShareVOs1,stockShareVOs2);
 		JPanel jpanel = createDemoPanel(dataset, "Differences on Closing Price");
         jpanel.setPreferredSize(new Dimension(500, 270));
         return jpanel;
 	}
+	
 	/**
-	 * 画出day1到day2期间股票的每日最高价的比较折线图
-	 * @param stock1
-	 * @param stock2
-	 * @param day1
-	 * @param day2
+	 * 根据股票编号返回日期内最大值
+	 * @param stock
 	 * @return
 	 */
-	private JPanel drawMaxValue(){
-		CategoryDataset dataset = lineChartDemo1.createMaxDataset();
-		JPanel jpanel = createDemoPanel(dataset, "Differences on Maximum Price");
-        jpanel.setPreferredSize(new Dimension(500, 270));
-        return jpanel;
+	public double getMaxValue(String stock){
+		if(stock.equals(stock2)){
+			return lineChartDemo1.getMax(stockShareVOs1);
+		}else{
+			return lineChartDemo1.getMax(stockShareVOs2);
+		}
 	}
 	
 	/**
-	 * 画出day1到day2期间股票的每日最低价的比较折线图
-	 * @param stock1
-	 * @param stock2
-	 * @param day1
-	 * @param day2
+	 * 根据股票编号返回日期内最小值
+	 * @param stock
 	 * @return
 	 */
-	private JPanel drawMinValue(){
-		CategoryDataset dataset = lineChartDemo1.createMinDataset();
-		JPanel jpanel = createDemoPanel(dataset, "Differences on Minimum Price");
-        jpanel.setPreferredSize(new Dimension(500, 270));
-        return jpanel;
+	public double getMinValue(String stock){
+		if(stock.equals(stock1)){
+			return lineChartDemo1.getMin(stockShareVOs1);
+		}else{
+			return lineChartDemo1.getMin(stockShareVOs2);
+		}
 	}
 	
 	/**
-	 * 画出day1到day2期间股票的每日对数收益率的比较折线图
-	 * @param stock1
-	 * @param stock2
-	 * @param day1
-	 * @param day2
-	 * @return
+	 * 返回对数收益率的表格
 	 */
-	private JPanel drawLogValue(){
-		CategoryDataset dataset = lineChartDemo1.createLogDataset();
+	public JPanel drawLogValue(){
+		CategoryDataset dataset = lineChartDemo1.createLogDataset(stockShareVOs1, stockShareVOs2);
 		JPanel jpanel = createDemoPanel(dataset, "Differences on Logarithmic Yield");
         jpanel.setPreferredSize(new Dimension(500, 270));
         return jpanel;
 	}
 	
-	 private JFreeChart createChart(CategoryDataset categorydataset, String title) {  
+	/**
+	 * 根据dataset画表格
+	 * @param categorydataset
+	 * @param title
+	 * @return
+	 */
+	 private JFreeChart createChart(CategoryDataset categorydataset, String title) {
+		 
+
+			//修改文字编码格式
+	        StandardChartTheme theme = new StandardChartTheme("unicode") {  
+	            public void apply(JFreeChart chart) {  
+	                chart.getRenderingHints().put(RenderingHints.KEY_TEXT_ANTIALIASING,  
+	                        RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);  
+	                super.apply(chart);  
+	            }  
+	        };
+	        theme.setExtraLargeFont(new Font("微软雅黑", Font.PLAIN, 20));  
+	        theme.setLargeFont(new Font("微软雅黑", Font.PLAIN, 14));  
+	        theme.setRegularFont(new Font("微软雅黑", Font.PLAIN, 12));  
+	        theme.setSmallFont(new Font("微软雅黑", Font.PLAIN, 10));  
+	        ChartFactory.setChartTheme(theme); 
+	        
 	        JFreeChart jfreechart = ChartFactory.createLineChart(  
 	                title,// 图表标题  
 	                "Date", // 主轴标签（x轴）  
@@ -190,8 +168,8 @@ public class CompareFuncTest implements CompareFunc{
 	        return jfreechart;  
 	    }
 	    
-	    public JPanel createDemoPanel(CategoryDataset categoryDataset, String title) {
+	    private JPanel createDemoPanel(CategoryDataset categoryDataset, String title) {
 	        JFreeChart jfreechart = createChart(categoryDataset, title);                  
-	        return new ChartPanel(jfreechart);  
+	        return new ChartPanel(jfreechart);
 	    }
 }

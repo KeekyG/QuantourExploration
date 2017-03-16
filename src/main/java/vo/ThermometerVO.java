@@ -45,16 +45,6 @@ public class ThermometerVO {
 	 * @param fivePercentBiggerNum
 	 * @param fivePercentSmallerNum
 	 */
-	/**
-	 * @param date
-	 * @param totalVolume
-	 * @param upNum
-	 * @param downNum
-	 * @param fivePercentUpNum
-	 * @param fivePercentDownNum
-	 * @param fivePercentBiggerNum
-	 * @param fivePercentSmallerNum
-	 */
 	public ThermometerVO(Date date, long totalVolume, long upNum, long downNum, long fivePercentUpNum, long fivePercentDownNum, long fivePercentBiggerNum, long fivePercentSmallerNum) {
 		this.date = date;
 		this.totalVolume = totalVolume;
