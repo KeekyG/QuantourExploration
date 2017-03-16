@@ -59,7 +59,20 @@ public class MarketBl implements MarketBlService {
 		}
 		
 		return null;
+
 	}
+	
+	/*public static void main(String[] args) {
+		MarketBl bl = new MarketBl();
+		Date date = new Date(105, 1, 2);
+		for(int i=0; i<1000; i++){
+			date.setTime(date.getTime()+86400000L);
+		
+			System.err.println(date);
+			bl.getMarketThermo(date);
+		}
+
+	}*/
 	
 	
 
