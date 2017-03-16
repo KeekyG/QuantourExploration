@@ -23,7 +23,7 @@ public class MarketThermometer {
 
 	private MarketBl marketBl = new MarketBl();
 	private ThermometerVO thermometerVO;
-	
+        
 	public JPanel drawThermometer(Date day){
 		
 		//修改文字编码格式
@@ -40,8 +40,9 @@ public class MarketThermometer {
         theme.setSmallFont(new Font("微软雅黑", Font.PLAIN, 10));  
         ChartFactory.setChartTheme(theme); 
 
-//        thermometerVO = marketBl.getMarketThermo(day);
-        thermometerVO = new ThermometerVO(day, 500, 60, 50, 40, 40, 40, 40);
+        thermometerVO = marketBl.getMarketThermo(day);
+        
+//        thermometerVO = new ThermometerVO(day, 500, 60, 50, 40, 40, 40, 40);
         CategoryDataset dataset = creatDataset(day);
 		JFreeChart chart = creatChart(dataset);
 		JPanel panel = new ChartPanel(chart);
@@ -88,6 +89,7 @@ public class MarketThermometer {
 				false,	//是否显示提示信息
 				false);	//是否显示urls
 		
+		chart.getRenderingHints().put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 		chart.setBorderPaint(Color.BLACK);
 		return chart;
 	}
