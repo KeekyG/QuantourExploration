@@ -3,6 +3,7 @@ package bl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import blService.StockBlService;
@@ -56,7 +57,7 @@ public class StockBl implements StockBlService {
 			ArrayList<StockUpDownPO> pos = stockDao.getSearchStocks(beginTime, endTime, code);
 			ArrayList<StockShareVO> shareVOs = pos.stream().map(a -> transferBlService.toStockShareVO(a)).collect(Collectors.toCollection(ArrayList::new));
 			StockShareVO yesterdayShare = shareVOs.get(shareVOs.size()-1);
-			shareVOs = (ArrayList<StockShareVO>) shareVOs.subList(0, shareVOs.size()-1);
+			shareVOs.remove(shareVOs.size()-1);
 			return transferBlService.toShareLineVO(shareVOs, beginTime, endTime, code, shareVOs.get(0).getName(), yesterdayShare);
 		}
 	}

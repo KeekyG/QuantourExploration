@@ -9,18 +9,18 @@ package com.hhh.QuantourExploration;
  *       方法2、设置X轴上的Lable让其45度倾斜。 
  */
 import java.util.Date;
-import java.nio.DoubleBuffer;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import org.jfree.data.category.CategoryDataset;  
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import bl.StockBl;
 import blService.StockBlService;
+import vo.ShareLineVO;
 import vo.StockShareVO;  
+
  /**
   * 处理数据设置Dataset
   * @author KeekyG
@@ -39,25 +39,11 @@ public class LineChartDemo1{
 	 * @param day2
 	 * @return
 	 */
-	public ArrayList<StockShareVO> getStockLists(String stock, Date day1, Date day2){
-		ArrayList<StockShareVO> Stock;
+	public ShareLineVO getStock(String stock, Date day1, Date day2){
+		ShareLineVO Stock;
 		StockBlService stockBlService = new StockBl();
-		day1 = getDateBefore(day1);
 		Stock = stockBlService.getShareLine(day1, day2, stock);
 		return Stock;
-	}
-	
-	/**
-	 * 返回所选日期的前一天的日期
-	 * @param day
-	 * @return
-	 */
-	private Date getDateBefore(Date day){
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(day);
-		int temp = calendar.get(Calendar.DATE);
-		calendar.set(Calendar.DATE, temp - 1);
-		return calendar.getTime();
 	}
 	
 	/**
@@ -130,10 +116,10 @@ public class LineChartDemo1{
      */
     public CategoryDataset createLogDataset(ArrayList<StockShareVO> Stock1, ArrayList<StockShareVO> Stock2) {  
         DefaultCategoryDataset defaultcategorydataset = new DefaultCategoryDataset();
-        double date1 = Stock1.get(0).getAdjClose();
-        double date2 = Stock2.get(0).getAdjClose();
-        Stock1.remove(0);
-        Stock2.remove(0);
+        ShareLineVO stock1 = (ShareLineVO)Stock1;
+        ShareLineVO stock2 = (ShareLineVO)Stock2;
+        double date1 = stock1.getYesterdayShare().getAdjClose();
+        double date2 = stock2.getYesterdayShare().getAdjClose();
         for(StockShareVO stock: Stock1){
         	double value = logValue(date1, stock.getAdjClose());
         	logvalue1.add(value);
@@ -149,6 +135,8 @@ public class LineChartDemo1{
 		}        
         return defaultcategorydataset;  
     }
+    
+    //进行格式转换
     private DecimalFormat decimalFormat = new DecimalFormat("##.##");
     
     /**
@@ -157,7 +145,8 @@ public class LineChartDemo1{
      * @return
      */
 	public String getChange(ArrayList<StockShareVO> stockShareVOs){
-		double first = stockShareVOs.get(1).getClose();
+		ShareLineVO stock1 = (ShareLineVO)stockShareVOs;
+        double first = stock1.getYesterdayShare().getClose();
 		double last = stockShareVOs.get(stockShareVOs.size() - 1).getClose();
 		return decimalFormat.format(last - first);
 	}

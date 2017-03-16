@@ -11,7 +11,6 @@ import javax.swing.JPanel;
  */
 public interface CompareFunc {
 	
-	public void drawDiff(String stock1, String stock2, Date day1, Date day2);
 	public JPanel drawLastValue();
 	public double getMaxValue(String stock);
 	public double getMinValue(String stock);

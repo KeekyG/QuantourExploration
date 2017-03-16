@@ -35,6 +35,7 @@ public class MarketBl implements MarketBlService {
 		beforeDayStockVOs = beforeStockPOs.stream().map(a -> transferBlService.toDailyStockVO(a)).collect(Collectors.toCollection(ArrayList::new));
 		dailyStockVOs.sort((a, b) -> a.getCode().compareTo(b.getCode()));
 		beforeDayStockVOs.sort((a, b) -> a.getCode().compareTo(b.getCode()));
+		return null;
 		
 		
 	}
@@ -64,6 +65,7 @@ public class MarketBl implements MarketBlService {
 			totalVolume += today.get(i).getVolume();
 			
 		}
+		return null;
 	}
 
 }

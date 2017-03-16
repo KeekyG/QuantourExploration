@@ -37,34 +37,18 @@ public class CompareFuncTest implements CompareFunc{
 	private LineChartDemo1 lineChartDemo1;
 	private ArrayList<StockShareVO> stockShareVOs1;
 	private ArrayList<StockShareVO> stockShareVOs2;
+	private String stock1;
+	private String stock2;
 	
 	public CompareFuncTest(String stock1, String stock2, Date day1, Date day2) {
 		// TODO Auto-generated constructor stub
 		lineChartDemo1 = new LineChartDemo1();
-		stockShareVOs1 = lineChartDemo1.getStockLists(stock1, day1, day2);
-		stockShareVOs2 = lineChartDemo1.getStockLists(stock2, day1, day2);
+		this.stock1 = stock1;
+		this.stock2 = stock2;
+		stockShareVOs1 = lineChartDemo1.getStock(stock1, day1, day2);
+		stockShareVOs2 = lineChartDemo1.getStock(stock2, day1, day2);
 	}
-	@Override
-	public void drawDiff(String stock1, String stock2, Date day1, Date day2) {
-		// TODO Auto-generated method stub
-		
-		JPanel lastValue = drawLastValue();
-		JPanel logValue = drawLogValue();
-		String var1 = lineChartDemo1.calVariance1();
-		String var2 = lineChartDemo1.calVariance2();
-		JTextPane textPane = new JTextPane();
-		textPane.setText("Variance of " + stock1 + "'s Log Field is " + var1 + "\nVariance of " + 
-										stock2 + "'s Log Field is " + var2);
-		logValue.add(textPane);
-        JFrame frame = new JFrame("Differences between " + stock1 + " and " + stock2);
-        frame.setLayout(new GridLayout(2, 2));
-        frame.getContentPane().add(lastValue);
-        frame.setSize(800, 600);
-        frame.getContentPane().add(logValue);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-	}
-
+	
 	public JPanel drawLastValue(){
 		CategoryDataset dataset = lineChartDemo1.createLastDataset(stockShareVOs1,stockShareVOs2);
 		JPanel jpanel = createDemoPanel(dataset, "Differences on Closing Price");
@@ -78,7 +62,7 @@ public class CompareFuncTest implements CompareFunc{
 	 * @return
 	 */
 	public double getMaxValue(String stock){
-		if(stock.equals(stockShareVOs1.get(0).getCode())){
+		if(stock.equals(stock2)){
 			return lineChartDemo1.getMax(stockShareVOs1);
 		}else{
 			return lineChartDemo1.getMax(stockShareVOs2);
@@ -91,7 +75,7 @@ public class CompareFuncTest implements CompareFunc{
 	 * @return
 	 */
 	public double getMinValue(String stock){
-		if(stock.equals(stockShareVOs1.get(0).getCode())){
+		if(stock.equals(stock1)){
 			return lineChartDemo1.getMin(stockShareVOs1);
 		}else{
 			return lineChartDemo1.getMin(stockShareVOs2);
