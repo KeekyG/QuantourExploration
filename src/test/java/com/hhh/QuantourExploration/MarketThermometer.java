@@ -50,7 +50,7 @@ public class MarketThermometer {
 	}
 	
 	/**
-	 * 
+	 *  计算总交易量
 	 * @return 当日总交易量
 	 */
 	public double SumOfTrans(){
