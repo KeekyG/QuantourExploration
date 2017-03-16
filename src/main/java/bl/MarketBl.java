@@ -27,25 +27,17 @@ public class MarketBl implements MarketBlService {
 	@Override
 	public ThermometerVO getMarketThermo(Date date) {
 		ArrayList<StockUpDownPO> stockPOs = stockDao.getDailyStock(date);
-		ArrayList<StockUpDownPO> beforeStockPOs = stockDao.getDailyStock(TimeUtility.getDayBefore(date));
 		
 		ArrayList<DailyStockVO> dailyStockVOs = new ArrayList<>();
-		ArrayList<DailyStockVO> beforeDayStockVOs = new ArrayList<>();
 		dailyStockVOs = stockPOs.stream().map(a -> transferBlService.toDailyStockVO(a)).collect(Collectors.toCollection(ArrayList::new));
-		beforeDayStockVOs = beforeStockPOs.stream().map(a -> transferBlService.toDailyStockVO(a)).collect(Collectors.toCollection(ArrayList::new));
 		dailyStockVOs.sort((a, b) -> a.getCode().compareTo(b.getCode()));
-		beforeDayStockVOs.sort((a, b) -> a.getCode().compareTo(b.getCode()));
+		calculateThermo(date, dailyStockVOs);
 		return null;
-		
-		
 	}
 	
-	private ThermometerVO calculateThermo(Date date, ArrayList<DailyStockVO> before, ArrayList<DailyStockVO> today) {
-		int bLength = before.size();
-		int tLength = today.size();
-		if (bLength != tLength) {
-			return null;
-		}
+	private ThermometerVO calculateThermo(Date date, ArrayList<DailyStockVO> today) {
+		
+		int length = today.size();
 		
 		long totalVolume = 0;
 		
@@ -61,11 +53,14 @@ public class MarketBl implements MarketBlService {
 		
 		long fivePercentSmallerNum = 0;
 		
-		for (int i = 0; i < bLength; i++) {
+		for (int i = 0; i < length; i+=2) {
 			totalVolume += today.get(i).getVolume();
-			
+			System.out.println(today.get(i).getName()+"\t"+today.get(i).getAdjClose()+"\t"+today.get(i+1).getAdjClose()+"\t"+(today.get(i).getAdjClose()-today.get(i+1).getAdjClose())/today.get(i+1).getAdjClose());
 		}
+		
 		return null;
 	}
+	
+	
 
 }
