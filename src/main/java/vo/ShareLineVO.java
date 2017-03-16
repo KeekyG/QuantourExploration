@@ -12,6 +12,7 @@ import java.util.Date;
  * endDate	结束日期
  * code	股票代码
  * name	股票名
+ * yesterdayShare 前一个交易日的股票数据
  *
  */
 public class ShareLineVO extends ArrayList<StockShareVO> {
@@ -29,11 +30,14 @@ public class ShareLineVO extends ArrayList<StockShareVO> {
 	
 	private String name;
 	
-	public ShareLineVO(ArrayList<StockShareVO> shares, Date beginDate, Date endDate, String code, String name) {
+	private StockShareVO yesterdayShare;
+	
+	public ShareLineVO(ArrayList<StockShareVO> shares, Date beginDate, Date endDate, String code, String name, StockShareVO yesterdayShare) {
 		this.beginDate = beginDate;
 		this.endDate = endDate;
 		this.code = code;
 		this.name = name;
+		this.yesterdayShare = yesterdayShare;
 		this.addAll(shares);
 		this.sort((a, b) -> b.getDate().before(a.getDate()) ? 1 : -1);
 	}
@@ -53,4 +57,9 @@ public class ShareLineVO extends ArrayList<StockShareVO> {
 	public String getName() {
 		return name;
 	}
+
+	public StockShareVO getYesterdayShare() {
+		return yesterdayShare;
+	}
+
 }
