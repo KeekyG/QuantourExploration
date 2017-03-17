@@ -1,8 +1,7 @@
-package com.hhh.QuantourExploration;
+package bl;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Paint;
 import java.awt.RenderingHints;
 import java.util.Date;
 
@@ -16,18 +15,14 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-import bl.MarketBl;
+import blService.MarketThermometerBlService;
 import vo.ThermometerVO;
 
-public class MarketThermometer {
-
+public class MarketThermometerBl implements MarketThermometerBlService{
+	
 	private MarketBl marketBl = new MarketBl();
 	private ThermometerVO thermometerVO;
-<<<<<<< HEAD
         
-=======
-	
->>>>>>> master
 	public JPanel drawThermometer(Date day){
 		
 		//修改文字编码格式
@@ -44,14 +39,9 @@ public class MarketThermometer {
         theme.setSmallFont(new Font("微软雅黑", Font.PLAIN, 10));  
         ChartFactory.setChartTheme(theme); 
 
-<<<<<<< HEAD
         thermometerVO = marketBl.getMarketThermo(day);
         
 //        thermometerVO = new ThermometerVO(day, 500, 60, 50, 40, 40, 40, 40);
-=======
-//        thermometerVO = marketBl.getMarketThermo(day);
-        thermometerVO = new ThermometerVO(day, 500, 60, 50, 40, 40, 40, 40);
->>>>>>> master
         CategoryDataset dataset = creatDataset(day);
 		JFreeChart chart = creatChart(dataset);
 		JPanel panel = new ChartPanel(chart);
@@ -59,11 +49,7 @@ public class MarketThermometer {
 	}
 	
 	/**
-<<<<<<< HEAD
 	 *  计算总交易量
-=======
-	 * 
->>>>>>> master
 	 * @return 当日总交易量
 	 */
 	public double SumOfTrans(){
@@ -102,13 +88,8 @@ public class MarketThermometer {
 				false,	//是否显示提示信息
 				false);	//是否显示urls
 		
-<<<<<<< HEAD
 		chart.getRenderingHints().put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
-=======
->>>>>>> master
 		chart.setBorderPaint(Color.BLACK);
 		return chart;
 	}
 }
-
-

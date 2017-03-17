@@ -1,0 +1,11 @@
+.root {
+    -fx-background-color: #fff;
+}
+
+.background {
+    -fx-background-image: url("../img/load.png");
+    -fx-background-size: 100% 100%;
+    -fx-background-color: transparent;
+    -fx-background-position: top;
+    -fx-background-repeat: no-repeat;
+}
