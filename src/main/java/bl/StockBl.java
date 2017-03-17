@@ -25,7 +25,7 @@ public class StockBl implements StockBlService {
 
 	private ArrayList<String> codeList;
 
-	public HashMap<String, String> nameMap;
+	private HashMap<String, String> nameMap;
 	
 	private ArrayList<String> nameList;
 
