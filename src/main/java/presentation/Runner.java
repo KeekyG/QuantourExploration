@@ -100,7 +100,22 @@ public class Runner extends Application {
 	}
 	
 	private void newWindow(Stage primaryStage) {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Runner.class.getResource("fxml/MenuPane.fxml"));
+		AnchorPane pane = null;
+		try {
+			pane = (AnchorPane) loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(pane);
+		
 		primaryStage.close();
+		primaryStage.setScene(scene);
+		primaryStage.setResizable(false);
+		primaryStage.show();
+		
+		
 	}
 	
 	public static void main(String[] args) {
