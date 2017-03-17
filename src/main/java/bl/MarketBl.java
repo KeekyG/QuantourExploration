@@ -87,5 +87,5 @@ public class MarketBl implements MarketBlService {
 		return new ThermometerVO(date, totalVolume, upNum, downNum, fivePercentUpNum, fivePercentDownNum, fivePercentBiggerNum, fivePercentSmallerNum);
 
 	}
-	
+		
 }

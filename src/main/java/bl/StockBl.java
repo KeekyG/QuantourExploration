@@ -25,7 +25,7 @@ public class StockBl implements StockBlService {
 
 	private ArrayList<String> codeList;
 
-	private HashMap<String, String> nameMap;
+	public HashMap<String, String> nameMap;
 	
 	private ArrayList<String> nameList;
 
@@ -70,5 +70,6 @@ public class StockBl implements StockBlService {
 			return getShareLine(beginTime, endTime, nameMap.get(name));
 		}
 	}
+	
 
 }
