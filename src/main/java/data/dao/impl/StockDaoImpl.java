@@ -15,7 +15,7 @@ import po.StockUpDownPO;
 
 public class StockDaoImpl implements StockDao{
 	
-	private String filePath = StockDaoImpl.class.getResource("all.csv").getPath();
+	private String filePath = "f/all.csv";
 	
 	public ArrayList<StockUpDownPO> getSearchStocks(Date start, Date end, String code) {
 		CsvReader record = null;
@@ -101,18 +101,6 @@ public class StockDaoImpl implements StockDao{
 				e.printStackTrace();
 			}
 			return stockUpDownPOs;
-	}
-	
-	public static void main(String[] args) {
-		StockDaoImpl stockDaoImpl = new StockDaoImpl();
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yy");
-		Date date = null;
-		try {
-			date = simpleDateFormat.parse("4/29/14");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		stockDaoImpl.getDailyStock(date);
 	}
 	
 }

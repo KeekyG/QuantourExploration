@@ -3,6 +3,7 @@ package bl;
 import java.awt.Color;
 import java.awt.Font;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -27,12 +28,13 @@ import org.jfree.data.time.ohlc.OHLCSeries;
 import org.jfree.data.time.ohlc.OHLCSeriesCollection;
 
 import blService.KMapBlService;
+import blService.StockBlService;
 import vo.ShareLineVO;
 
-public class KMapBl implements KMapBlService{
+public class KMapBl {
 	
 	
-	public void kTest(ShareLineVO shareLineVO){
+	public JFreeChart kTest(ShareLineVO shareLineVO){
 		
 		double avg5=0.0,avg10=0.0,avg20=0.0,avg30=0.0,avg60=0.0;
 	    
@@ -210,8 +212,8 @@ public class KMapBl implements KMapBlService{
         domainAxis.setStandardTickUnits(DateAxis.createStandardDateTickUnits());// 设置标准的时间刻度单位
         domainAxis.setTickUnit(new DateTickUnit(DateTickUnit.DAY,7));// 设置时间刻度的间隔，一般以周为单位
         domainAxis.setDateFormatOverride(df);//设置时间格式
-        domainAxis.setTimeline(SegmentedTimeline.newMondayThroughFridayTimeline());
-        
+        SegmentedTimeline timeline = SegmentedTimeline.newMondayThroughFridayTimeline();
+        domainAxis.setTimeline(timeline);
         
         //设置均线图画图器
         XYLineAndShapeRenderer lineAndShapeRenderer = new XYLineAndShapeRenderer();
@@ -279,10 +281,9 @@ public class KMapBl implements KMapBlService{
         ChartFrame frame = new ChartFrame(shareLineVO.getName(), chart);
         frame.pack();
         frame.setVisible(true);
-        
+        return chart;
 
       
     }
-    
     
 }
