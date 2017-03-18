@@ -1,1 +1,1 @@
-运行presentation包中的Runner文件
+运行可执行文件中的jar文件
