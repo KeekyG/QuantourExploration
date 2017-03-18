@@ -3,7 +3,7 @@ package utility;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
-public class VerfyUtility {
+public class VerifyUtility {
 	public static void showWarning(String title, String message) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(title);
