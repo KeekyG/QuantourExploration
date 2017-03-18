@@ -44,11 +44,9 @@ public class MarketThermometerBl implements MarketThermometerBlService{
         thermometerVO = marketBl.getMarketThermo(day);
         
  
-        JLabel label = new JLabel(SumOfTrans());
         CategoryDataset dataset = creatDataset(day);
 		JFreeChart chart = creatChart(dataset);
 		JPanel panel = new ChartPanel(chart);
-		panel.add(label);
 		return panel;
 	}
 	
@@ -84,7 +82,7 @@ public class MarketThermometerBl implements MarketThermometerBlService{
 	 * @return
 	 */
 	private JFreeChart creatChart(CategoryDataset dataset){
-		JFreeChart chart = ChartFactory.createBarChart("Market Theromometer",	//表格名字
+		JFreeChart chart = ChartFactory.createBarChart("总交易量：" + SumOfTrans(),	//表格名字
 				"名称",	//X轴名字
 				"数量",	//Y轴名字
 				dataset,	//data
