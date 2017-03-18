@@ -35,6 +35,8 @@ public class CompareBl implements CompareBlService{
 	private ArrayList<StockShareVO> stockShareVOs2;
 	private String stock1;
 	private String stock2;
+	private String name1;
+	private String name2;
 	
 	public CompareBl(String stock1, String stock2, Date day1, Date day2) {
 		// TODO Auto-generated constructor stub
@@ -43,12 +45,14 @@ public class CompareBl implements CompareBlService{
 		this.stock2 = stock2;
 		stockShareVOs1 = lineChartDemo1.getStock(stock1, day1, day2);
 		stockShareVOs2 = lineChartDemo1.getStock(stock2, day1, day2);
+		name1 = stockShareVOs1.get(0).getName();
+		name2 = stockShareVOs2.get(0).getName();
 	}
 	
 	public JPanel drawLastValue(){
 		CategoryDataset dataset = lineChartDemo1.createLastDataset(stockShareVOs1,stockShareVOs2);
-		JPanel jpanel = createDemoPanel(dataset, stock1 + "最高值："+ getMaxValue(stock1) + "最低值：" + getMinValue(stock1)
-											+ "while " + stock2 + "最高值："+ getMaxValue(stock2) + "最低值：" + getMinValue(stock2));
+		JPanel jpanel = createDemoPanel(dataset, name1 + " 最高值："+ getMaxValue(stock1) + " 最低值：" + getMinValue(stock1)
+											+ "  " + name2 + " 最高值："+ getMaxValue(stock2) + "最低值：" + getMinValue(stock2));
         jpanel.setPreferredSize(new Dimension(500, 270));
         return jpanel;
 	}
@@ -84,8 +88,8 @@ public class CompareBl implements CompareBlService{
 	 */
 	public JPanel drawLogValue(){
 		CategoryDataset dataset = lineChartDemo1.createLogDataset(stockShareVOs1, stockShareVOs2);
-		JPanel jpanel = createDemoPanel(dataset, stock1 + "涨幅："+ getMaxValue(stock1) + "跌幅：" + getMinValue(stock1)
-											+ "while " + stock2 + "涨幅："+ getMaxValue(stock2) + "跌幅：" + getMinValue(stock2));
+		JPanel jpanel = createDemoPanel(dataset, name1 + " 涨幅："+ getMaxValue(stock1) + " 跌幅：" + getMinValue(stock1)
+											+ "  " + name2 + " 涨幅："+ getMaxValue(stock2) + " 跌幅：" + getMinValue(stock2));
         jpanel.setPreferredSize(new Dimension(500, 270));
         return jpanel;
 	}
