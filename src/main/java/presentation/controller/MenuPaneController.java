@@ -1,5 +1,6 @@
 package presentation.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.controlsfx.control.textfield.TextFields;
@@ -18,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import javafx.util.Duration;
+import utility.VerifyUtility;
 import vo.StockCodesVO;
 
 public class MenuPaneController {
@@ -84,12 +86,17 @@ public class MenuPaneController {
 
 	@FXML
 	private Button thermoButton;
+	
+	@FXML
+	private AnchorPane centerPane;
 
 	private ArrayList<Node> stockNodeList;
 
 	private ArrayList<Node> compareNodeList;
 
 	private ArrayList<Node> thermoNodeList;
+	
+	private ChartFactory factory;
 
 	@FXML
 	private void initialize() {
@@ -125,6 +132,33 @@ public class MenuPaneController {
 	@FXML
 	private void handleThermoToggleButton() {
 		showContents(thermoBox, thermoNodeList);
+	}
+	
+	@FXML
+	private void handleStockInquireButton() {
+		if(verifyStock(stockTextField) && verifyDateBefore(stockBeginDatePicker, stockEndDatePicker)) {
+			AnchorPane pane = factory.getKMap(stockBeginDatePicker.getValue(), stockEndDatePicker.getValue(), stockTextField.getText());
+			centerPane.getChildren().clear();
+			centerPane.getChildren().add(pane);
+		}
+		
+	}
+	
+	@FXML
+	private void handleCompareInquireButton() {
+		if(verifyStock(compareFirstTextField) && verifyStock(compareSecondTextField) && verifyDateBefore(compareBeginDatePicker, compareEndDatePicker)){
+			
+		}
+		
+	}
+	
+	@FXML
+	private void handleThermoInquireButton() {
+		if(verifyDate(thermoDatePicker)) {
+			AnchorPane pane = factory.getThermo(thermoDatePicker.getValue());
+			centerPane.getChildren().clear();
+			centerPane.getChildren().add(pane);
+		}
 	}
 
 	private void showContents(VBox box, ArrayList<Node> nodes) {
@@ -164,7 +198,47 @@ public class MenuPaneController {
 			public DateCell call(DatePicker param) {
 				return new ForbidDateCell();
 			}
-		});
-			
-	}				
+		});		
+	}
+	
+	private boolean verifyStock(TextField textField) {
+		String content = textField.getText();
+		if (content == null || content.isEmpty()) {
+			VerifyUtility.showWarning("输入为空", "请输入股票信息");
+			return false;
+		} else if (!StockCodesVO.getInstance().getCodeList().contains(content) && !StockCodesVO.getInstance().getNameMap().keySet().contains(content)) {
+			VerifyUtility.showWarning("输入错误", "不存在股票"+content);
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	private boolean verifyDate(DatePicker datePicker) {
+		if (datePicker.getValue() == null) {
+			VerifyUtility.showWarning("日期为空", "请选择日期");
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	private boolean verifyDateBefore(DatePicker beforeDatePicker, DatePicker latterDatePicker) {
+		if (verifyDate(beforeDatePicker) && verifyDate(latterDatePicker)) {
+			LocalDate before = beforeDatePicker.getValue();
+			LocalDate latter = latterDatePicker.getValue();
+			if (!before.isBefore(latter)) {
+				VerifyUtility.showWarning("日期顺序错误", "开始日期应该在结束日期之前");
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			return false;
+		}
+	}
+	
+	public void setFactory(ChartFactory factory) {
+		this.factory = factory;
+	}
 }

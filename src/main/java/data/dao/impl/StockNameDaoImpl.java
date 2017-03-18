@@ -12,7 +12,8 @@ import data.dao.StockNameDao;
 
 public class StockNameDaoImpl implements StockNameDao{
 	
-	private String filePath = StockDaoImpl.class.getResource("all.csv").getPath();
+
+	private String filePath = "f/all.csv";
 
 	public HashMap<String, String> getStockName() {
 		CsvReader record = null;

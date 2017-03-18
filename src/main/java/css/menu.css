@@ -8,6 +8,12 @@
     -fx-border-width: 0 0.5 0 0;
 }
 
+.center {
+    -fx-background-color: #dde8b9;
+    -fx-border-color: #2f2f2f;
+    -fx-border-width: 0 0.5 0 0;
+}
+
 .box-logo:hover,
 .box-logo:selected {
     -fx-opacity: 0.8;
