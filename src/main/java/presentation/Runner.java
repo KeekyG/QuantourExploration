@@ -13,6 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import presentation.controller.ChartFactory;
+import presentation.controller.MenuPaneController;
 import vo.StockCodesVO;
 
 public class Runner extends Application {
@@ -100,6 +102,8 @@ public class Runner extends Application {
 	}
 	
 	private void newWindow(Stage primaryStage) {
+		ChartFactory factory = new ChartFactory();
+		
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Runner.class.getResource("fxml/MenuPane.fxml"));
 		AnchorPane pane = null;
@@ -108,6 +112,8 @@ public class Runner extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		MenuPaneController controller = loader.getController();
+		controller.setFactory(factory);
 		Scene scene = new Scene(pane);
 		
 		primaryStage.close();

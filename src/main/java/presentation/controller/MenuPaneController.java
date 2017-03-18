@@ -92,6 +92,8 @@ public class MenuPaneController {
 	private ArrayList<Node> compareNodeList;
 
 	private ArrayList<Node> thermoNodeList;
+	
+	private ChartFactory factory;
 
 	@FXML
 	private void initialize() {
@@ -227,5 +229,9 @@ public class MenuPaneController {
 		} else {
 			return false;
 		}
+	}
+	
+	public void setFactory(ChartFactory factory) {
+		this.factory = factory;
 	}
 }

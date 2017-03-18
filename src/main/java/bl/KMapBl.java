@@ -31,10 +31,10 @@ import blService.KMapBlService;
 import blService.StockBlService;
 import vo.ShareLineVO;
 
-public class KMapBl {
+public class KMapBl implements KMapBlService {
 	
-	
-	public JFreeChart kTest(ShareLineVO shareLineVO){
+	@Override
+	public JFreeChart kTest(ShareLineVO shareLineVO) {
 		
 		double avg5=0.0,avg10=0.0,avg20=0.0,avg30=0.0,avg60=0.0;
 	    
