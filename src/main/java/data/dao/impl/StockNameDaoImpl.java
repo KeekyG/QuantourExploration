@@ -11,12 +11,14 @@ import com.csvreader.CsvReader;
 import data.dao.StockNameDao;
 
 public class StockNameDaoImpl implements StockNameDao{
+	
+	private String filePath = StockDaoImpl.class.getResource("all.csv").getPath();
 
 	public HashMap<String, String> getStockName() {
 		CsvReader record = null;
 		HashMap<String, String> stockNames = new HashMap<String,String>();
 		try {
-			record = new CsvReader("C:/Users/wy/Desktop/软工三/股票历史数据ALL(clean).csv", '	',Charset.forName("UTF8"));
+			record = new CsvReader(filePath, '	',Charset.forName("UTF8"));
 			record.readHeaders();
 			while (record.readRecord()) {
 				record.getRawRecord();
@@ -37,7 +39,7 @@ public class StockNameDaoImpl implements StockNameDao{
 		CsvReader record = null;
 		ArrayList<String> stockCodes = new ArrayList<String>();
 		try {
-		record = new CsvReader("C:/Users/wy/Desktop/软工三/股票历史数据ALL(clean).csv", '	',Charset.forName("UTF8"));
+		record = new CsvReader(filePath, '	',Charset.forName("UTF8"));
 		record.readHeaders();
 		while (record.readRecord()) {
 			record.getRawRecord();
