@@ -70,5 +70,6 @@ public class StockBl implements StockBlService {
 			return getShareLine(beginTime, endTime, nameMap.get(name));
 		}
 	}
+	
 
 }

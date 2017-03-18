@@ -73,7 +73,7 @@ public class StockDaoImpl implements StockDao{
 		CsvReader record = null;
 		ArrayList<StockUpDownPO> stockUpDownPOs = new ArrayList<StockUpDownPO>();
 		try{
-			record = new CsvReader("C://Users/ssw/Desktop/量化交易/股票历史数据ALL(clean).csv", '	',Charset.forName("UTF8"));
+			record = new CsvReader("C:/Users/wy/Desktop/软工三/股票历史数据ALL(clean).csv", '	',Charset.forName("UTF8"));
 			record.readHeaders();
 			while (record.readRecord()) {
 				record.getRawRecord();

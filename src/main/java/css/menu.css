@@ -1,0 +1,188 @@
+.logo {
+    -fx-image: url("../img/logo.png");
+}
+
+.box {
+    -fx-background-color: #796465;
+    -fx-border-color: #2f2f2f;
+    -fx-border-width: 0 0.5 0 0;
+}
+
+.box-logo:hover,
+.box-logo:selected {
+    -fx-opacity: 0.8;
+}
+
+.menus {
+    -fx-background-color: transparent;
+    -fx-text-fill: #dde8b9;
+    -fx-padding: 0 0 0 20;
+    -fx-font-size: 24px;
+    -fx-font-family: "微软雅黑";
+    -fx-cursor: hand;
+    -fx-graphic-text-gap: 10;
+}
+
+.menus:hover {
+    -fx-text-fill: #e8d2ae;
+    -fx-background-color: #796465;
+}
+
+.menus:selected {
+    -fx-background-color: #e8d2ae;
+    -fx-border-color: #e8d2ae;
+    -fx-text-fill: #796465;
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+    -fx-border-radius: 0;
+}
+
+.menu-stock {
+    -fx-graphic: url("../img/icon/stock.png");
+}
+
+.menu-stock:selected {
+    -fx-graphic: url("../img/icon/stock-selected.png");
+}
+
+.menu-compare {
+    -fx-graphic: url("../img/icon/compare.png");
+}
+
+.menu-compare:selected {
+    -fx-graphic: url("../img/icon/compare-selected.png");
+}
+
+.menu-thermo {
+    -fx-graphic: url("../img/icon/thermo.png");
+}
+
+.menu-thermo:selected {
+    -fx-graphic: url("../img/icon/thermo-selected.png");
+}
+
+.box-contents {
+    -fx-background-color: #716263;
+    -fx-padding: 0 0 0 45;
+    -fx-font-size: 18px;
+    -fx-cursor: hand;
+}
+
+.btn {
+    -fx-font-size: 18px;
+    -fx-font-family: "微软雅黑";
+    -fx-text-fill: #dde8b6;
+    -fx-background-color: #796465;
+    -fx-border-color: #796465;
+    -fx-border-insets: 0;
+    -fx-background-insets: 0;
+    -fx-border-radius: 0;
+    -fx-cursor: hand;
+}
+
+.btn:hover {
+    -fx-text-fill: #e8d2ae;
+}
+
+.btn:armed {
+    -fx-text-fill: #796465;
+    -fx-background-color: #e8d2ae;
+}
+
+.scroll {
+    -fx-background-color: transparent !important;
+    -fx-background-insets: -1px !important;
+    -fx-padding: 0px;
+    -fx-border-width: 0px !important;
+}
+
+.scroll > *.viewport {
+    -fx-background-color: transparent !important;
+    -fx-background-insets: 0;
+}
+
+.scroll > *.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-pref-width: 4;
+}
+
+.scroll > *.scroll-bar > *.thumb {
+    -fx-background-color: #e8d2ae;
+    -fx-border-color: #e8d2ae;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-insets: 0;
+    -fx-border-width: 0 0.5 0 0;
+}
+
+.scroll > *.scroll-bar:vertical > *.track {
+    -fx-background-color: transparent;
+}
+
+.scroll > *.scroll-bar:vertical > *.track-background {
+    -fx-background-color: transparent;
+}
+
+.scroll > *.scroll-bar:vertical > *.decrement-button {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0px;
+    -fx-padding: 4px;
+    -fx-pref-height: 0;
+}
+
+.scroll > *.scroll-bar > *.decrement-button > *.decrement-arrow {
+    -fx-background-color: transparent;
+}
+
+.scroll > *.scroll-bar:vertical > *.increment-button {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0px;
+    -fx-padding: 4px;
+    -fx-pref-height: 0;
+}
+
+.scroll > *.scroll-bar > *.increment-button > *.increment-arrow {
+    -fx-background-color: transparent;
+}
+
+
+.date-picker > *.arrow-button {
+    -fx-background-color: transparent, #f4f4f4;
+    -fx-background-insets: 1px 1px 1px -1px;
+}
+
+.date-picker > *.arrow-button > *.arrow {
+    -fx-background-color: transparent, #383838;
+    -fx-background-insets: 1px 0px -1px 0px, 0px;
+    -fx-padding: 0.416667em 0.416667em 0.333333em 0.333333em;
+    -fx-scale-shape: true;
+}
+
+.date-picker > *.text-field {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0 3 2 0;
+    -fx-border-radius: 3 0 0 3;
+    -fx-border-color: #eaeaea;
+}
+
+.date-picker > *.text-field:focused {
+    -fx-border-color: #7acff5;
+}
+
+.text-field {
+    -fx-background-color: #fff;
+    -fx-border-color: #eaeaea;
+    -fx-text-fill: #7a7a7a;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-highlight-fill: #ebebcc;
+    -fx-highlight-text-fill: #000000;
+}
+
+.text-field:focused {
+    -fx-border-color: #7acff5;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+}

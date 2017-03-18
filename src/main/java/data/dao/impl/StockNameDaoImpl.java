@@ -16,7 +16,7 @@ public class StockNameDaoImpl implements StockNameDao{
 		CsvReader record = null;
 		HashMap<String, String> stockNames = new HashMap<String,String>();
 		try {
-			record = new CsvReader("H://大二下/软工三/股票历史数据ALL.csv", '	',Charset.forName("UTF8"));
+			record = new CsvReader("C:/Users/wy/Desktop/软工三/股票历史数据ALL(clean).csv", '	',Charset.forName("UTF8"));
 			record.readHeaders();
 			while (record.readRecord()) {
 				record.getRawRecord();
@@ -37,7 +37,7 @@ public class StockNameDaoImpl implements StockNameDao{
 		CsvReader record = null;
 		ArrayList<String> stockCodes = new ArrayList<String>();
 		try {
-		record = new CsvReader("H://大二下/软工三/股票历史数据ALL.csv", '	',Charset.forName("UTF8"));
+		record = new CsvReader("C:/Users/wy/Desktop/软工三/股票历史数据ALL(clean).csv", '	',Charset.forName("UTF8"));
 		record.readHeaders();
 		while (record.readRecord()) {
 			record.getRawRecord();

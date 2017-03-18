@@ -31,8 +31,7 @@ public class MarketBl implements MarketBlService {
 		ArrayList<DailyStockVO> dailyStockVOs = new ArrayList<>();
 		dailyStockVOs = stockPOs.stream().map(a -> transferBlService.toDailyStockVO(a)).collect(Collectors.toCollection(ArrayList::new));
 		dailyStockVOs.sort((a, b) -> a.getCode().compareTo(b.getCode()));
-		calculateThermo(date, dailyStockVOs);
-		return null;
+		return calculateThermo(date, dailyStockVOs);
 	}
 	
 	private ThermometerVO calculateThermo(Date date, ArrayList<DailyStockVO> today) {
@@ -54,26 +53,39 @@ public class MarketBl implements MarketBlService {
 		long fivePercentSmallerNum = 0;
 		
 		for (int i = 0; i < length; i+=2) {
-			totalVolume += today.get(i).getVolume();
-			System.out.println(today.get(i).getName()+"\t"+today.get(i).getAdjClose()+"\t"+today.get(i+1).getAdjClose()+"\t"+(today.get(i).getAdjClose()-today.get(i+1).getAdjClose())/today.get(i+1).getAdjClose());
+			DailyStockVO todayStockVO = today.get(i);
+			DailyStockVO yesterdayStockVO = today.get(i+1);
+			totalVolume += todayStockVO.getVolume();
+			double open = todayStockVO.getOpen();
+			double yesterdayClose = yesterdayStockVO.getAdjClose();
+			double todayClose = todayStockVO.getAdjClose();
+			
+			double change = (todayClose - yesterdayClose) / yesterdayClose;
+			if (change > 0.05) {
+				fivePercentUpNum++;
+			} else if(change < 0.05) {
+				fivePercentDownNum++;
+			}
+			
+			if (change > 0.095) {
+				upNum++;
+			} else if (change < -0.095) {
+				downNum++;
+			}
+			
+			double wierd = yesterdayClose * 0.05;
+			
+			if ((open - todayClose) > wierd) {
+				fivePercentBiggerNum++;
+			}
+			if ((open - todayClose) < -1*wierd) {
+				fivePercentSmallerNum++;
+			}
+			
 		}
 		
-		return null;
+		return new ThermometerVO(date, totalVolume, upNum, downNum, fivePercentUpNum, fivePercentDownNum, fivePercentBiggerNum, fivePercentSmallerNum);
 
 	}
-	
-	/*public static void main(String[] args) {
-		MarketBl bl = new MarketBl();
-		Date date = new Date(105, 1, 2);
-		for(int i=0; i<1000; i++){
-			date.setTime(date.getTime()+86400000L);
 		
-			System.err.println(date);
-			bl.getMarketThermo(date);
-		}
-
-	}*/
-	
-	
-
 }
