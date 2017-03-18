@@ -14,14 +14,16 @@ import data.dao.StockDao;
 import po.StockUpDownPO;
 
 public class StockDaoImpl implements StockDao{
-
+	
+	private String filePath = StockDaoImpl.class.getResource("all.csv").getPath();
+	
 	public ArrayList<StockUpDownPO> getSearchStocks(Date start, Date end, String code) {
 		CsvReader record = null;
 		ArrayList<StockUpDownPO> stockUpDownPOs = new ArrayList<StockUpDownPO>();
 		//记录每一条有效股票的serial
 		int flag = 0;
 		try{
-			record = new CsvReader("H://大二下/软工三/股票历史数据ALL.csv", '	',Charset.forName("UTF8"));
+			record = new CsvReader(filePath, '	',Charset.forName("UTF8"));
 			record.readHeaders();
 			while (record.readRecord()) {
 				record.getRawRecord();
@@ -46,7 +48,7 @@ public class StockDaoImpl implements StockDao{
 		}
 		
 		try{
-			record = new CsvReader("H://大二下/软工三/股票历史数据ALL.csv", '	',Charset.forName("UTF8"));
+			record = new CsvReader(filePath, '	',Charset.forName("UTF8"));
 			record.readHeaders();
 			while (record.readRecord()) {
 				record.getRawRecord();
@@ -73,7 +75,7 @@ public class StockDaoImpl implements StockDao{
 		CsvReader record = null;
 		ArrayList<StockUpDownPO> stockUpDownPOs = new ArrayList<StockUpDownPO>();
 		try{
-			record = new CsvReader("C:/Users/wy/Desktop/软工三/股票历史数据ALL(clean).csv", '	',Charset.forName("UTF8"));
+			record = new CsvReader(filePath, '	',Charset.forName("UTF8"));
 			record.readHeaders();
 			while (record.readRecord()) {
 				record.getRawRecord();
@@ -99,6 +101,18 @@ public class StockDaoImpl implements StockDao{
 				e.printStackTrace();
 			}
 			return stockUpDownPOs;
+	}
+	
+	public static void main(String[] args) {
+		StockDaoImpl stockDaoImpl = new StockDaoImpl();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yy");
+		Date date = null;
+		try {
+			date = simpleDateFormat.parse("4/29/14");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		stockDaoImpl.getDailyStock(date);
 	}
 	
 }
