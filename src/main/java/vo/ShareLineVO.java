@@ -38,8 +38,10 @@ public class ShareLineVO extends ArrayList<StockShareVO> {
 		this.code = code;
 		this.name = name;
 		this.yesterdayShare = yesterdayShare;
-		this.addAll(shares);
-		this.sort((a, b) -> b.getDate().before(a.getDate()) ? 1 : -1);
+		if (shares != null && !shares.isEmpty()) {
+			this.addAll(shares);
+			this.sort((a, b) -> b.getDate().before(a.getDate()) ? 1 : -1);
+		}
 	}
 
 	public Date getBeginDate() {
