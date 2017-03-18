@@ -104,16 +104,4 @@ public class StockDaoImpl implements StockDao{
 			return stockUpDownPOs;
 	}
 	
-	public static void main(String[] args) {
-		StockDaoImpl stockDaoImpl = new StockDaoImpl();
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yy");
-		Date date = null;
-		try {
-			date = simpleDateFormat.parse("4/29/14");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		stockDaoImpl.getDailyStock(date);
-	}
-	
 }
