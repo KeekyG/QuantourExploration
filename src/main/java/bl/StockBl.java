@@ -60,8 +60,10 @@ public class StockBl implements StockBlService {
 			if (!shareVOs.isEmpty()) {
 				yesterdayShare = shareVOs.get(shareVOs.size()-1);
 				shareVOs.remove(shareVOs.size()-1);				
+				return transferBlService.toShareLineVO(shareVOs, beginTime, endTime, code, shareVOs.get(0).getName(), yesterdayShare);
+			} else {
+				return new ShareLineVO(null, null, null, null, null, null);
 			}
-			return transferBlService.toShareLineVO(shareVOs, beginTime, endTime, code, shareVOs.get(0).getName(), yesterdayShare);
 		}
 	}
 
