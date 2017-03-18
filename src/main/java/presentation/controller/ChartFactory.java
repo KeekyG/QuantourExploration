@@ -2,9 +2,15 @@ package presentation.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.HashMap;
+
+import javax.swing.JPanel;
+
+import bl.CompareBl;
 import bl.KMapBl;
 import bl.MarketThermometerBl;
 import bl.StockBl;
+import blService.CompareBlService;
 import blService.KMapBlService;
 import blService.MarketThermometerBlService;
 import blService.StockBlService;
@@ -14,6 +20,7 @@ import presentation.Runner;
 import utility.TimeUtility;
 import utility.VerifyUtility;
 import vo.ShareLineVO;
+import vo.StockCodesVO;
 
 public class ChartFactory {
 	
@@ -37,10 +44,11 @@ public class ChartFactory {
 		
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Runner.class.getResource("fxml/KMapPane.fxml"));
-		AnchorPane anchorPane = null;
+		AnchorPane pane = null;
 		try {
-			anchorPane = (AnchorPane) loader.load();
+			pane = (AnchorPane) loader.load();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		KMapPaneController controller = loader.getController();
@@ -51,17 +59,40 @@ public class ChartFactory {
 	public AnchorPane getThermo(LocalDate date) {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Runner.class.getResource("fxml/ThermoPane.fxml"));
-		AnchorPane anchorPane = null;
+		AnchorPane pane = null;
 		try {
-			anchorPane = (AnchorPane) loader.load();
+			pane = (AnchorPane) loader.load();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("before");
 		ThermoPaneController controller = loader.getController();
-		System.out.println("after");
-		System.out.println(controller);
-		
 		return controller.getAnchorPane(marketThermometerBl.drawThermometer(TimeUtility.localDateToDate(date)));
+	}
+	
+	public AnchorPane getCompareResult(String firstContent, String secondContent, LocalDate beginDate, LocalDate endDate) {
+		HashMap<String, String> nameMap = StockCodesVO.getInstance().getNameMap();
+		if (!VerifyUtility.isInteger(firstContent)) {
+			firstContent = nameMap.get(firstContent);
+		}
+		if (!VerifyUtility.isInteger(secondContent)) {
+			secondContent = nameMap.get(secondContent);
+		}
+		
+		CompareBlService compareBlService = new CompareBl(firstContent, secondContent, TimeUtility.localDateToDate(beginDate), TimeUtility.localDateToDate(endDate));
+		JPanel logPanel = compareBlService.drawLogValue();
+		JPanel variancePanel = compareBlService.drawLastValue();
+		
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Runner.class.getResource("fxml/ComparePane.fxml"));
+		AnchorPane pane = null;
+		try {
+			pane = (AnchorPane) loader.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ComparePaneController controller = loader.getController();
+		return controller.getPane(logPanel, variancePanel);
 	}
 }

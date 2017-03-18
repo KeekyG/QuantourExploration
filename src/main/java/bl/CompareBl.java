@@ -47,7 +47,8 @@ public class CompareBl implements CompareBlService{
 	
 	public JPanel drawLastValue(){
 		CategoryDataset dataset = lineChartDemo1.createLastDataset(stockShareVOs1,stockShareVOs2);
-		JPanel jpanel = createDemoPanel(dataset, "Differences on Closing Price");
+		JPanel jpanel = createDemoPanel(dataset, stock1 + "最高值："+ getMaxValue(stock1) + "最低值：" + getMinValue(stock1)
+											+ "while " + stock2 + "最高值："+ getMaxValue(stock2) + "最低值：" + getMinValue(stock2));
         jpanel.setPreferredSize(new Dimension(500, 270));
         return jpanel;
 	}
@@ -83,7 +84,8 @@ public class CompareBl implements CompareBlService{
 	 */
 	public JPanel drawLogValue(){
 		CategoryDataset dataset = lineChartDemo1.createLogDataset(stockShareVOs1, stockShareVOs2);
-		JPanel jpanel = createDemoPanel(dataset, "Differences on Logarithmic Yield");
+		JPanel jpanel = createDemoPanel(dataset, stock1 + "涨幅："+ getMaxValue(stock1) + "跌幅：" + getMinValue(stock1)
+											+ "while " + stock2 + "涨幅："+ getMaxValue(stock2) + "跌幅：" + getMinValue(stock2));
         jpanel.setPreferredSize(new Dimension(500, 270));
         return jpanel;
 	}
