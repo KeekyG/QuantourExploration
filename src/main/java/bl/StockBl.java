@@ -56,8 +56,11 @@ public class StockBl implements StockBlService {
 		} else {
 			ArrayList<StockUpDownPO> pos = stockDao.getSearchStocks(beginTime, endTime, code);
 			ArrayList<StockShareVO> shareVOs = pos.stream().map(a -> transferBlService.toStockShareVO(a)).collect(Collectors.toCollection(ArrayList::new));
-			StockShareVO yesterdayShare = shareVOs.get(shareVOs.size()-1);
-			shareVOs.remove(shareVOs.size()-1);
+			StockShareVO yesterdayShare = new StockShareVO(null, 0, 0, 0, 0, 0, 0, null, null, null);
+			if (!shareVOs.isEmpty()) {
+				yesterdayShare = shareVOs.get(shareVOs.size()-1);
+				shareVOs.remove(shareVOs.size()-1);				
+			}
 			return transferBlService.toShareLineVO(shareVOs, beginTime, endTime, code, shareVOs.get(0).getName(), yesterdayShare);
 		}
 	}
