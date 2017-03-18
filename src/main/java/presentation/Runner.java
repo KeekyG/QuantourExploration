@@ -118,6 +118,8 @@ public class Runner extends Application {
 		
 		primaryStage.close();
 		primaryStage.setScene(scene);
+		primaryStage.setHeight(720);
+		primaryStage.setWidth(1280);
 		primaryStage.setResizable(false);
 		primaryStage.show();
 		

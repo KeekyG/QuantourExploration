@@ -278,9 +278,9 @@ public class KMapBl implements KMapBlService {
         domainXYPlot.setGap(10);//设置两个图形区域对象之间的间隔空间
         //生成图纸
         JFreeChart chart = new JFreeChart(shareLineVO.getName(), new Font("微软雅黑", Font.BOLD, 24), domainXYPlot, true);
-        ChartFrame frame = new ChartFrame(shareLineVO.getName(), chart);
-        frame.pack();
-        frame.setVisible(true);
+        //ChartFrame frame = new ChartFrame(shareLineVO.getName(), chart);
+        //frame.pack();
+        //frame.setVisible(true);
         return chart;
 
       

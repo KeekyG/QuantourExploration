@@ -3,8 +3,10 @@ package bl;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.RenderingHints;
+import java.text.DecimalFormat;
 import java.util.Date;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
@@ -41,10 +43,12 @@ public class MarketThermometerBl implements MarketThermometerBlService{
 
         thermometerVO = marketBl.getMarketThermo(day);
         
-//        thermometerVO = new ThermometerVO(day, 500, 60, 50, 40, 40, 40, 40);
+ 
+        JLabel label = new JLabel(SumOfTrans());
         CategoryDataset dataset = creatDataset(day);
 		JFreeChart chart = creatChart(dataset);
 		JPanel panel = new ChartPanel(chart);
+		panel.add(label);
 		return panel;
 	}
 	
@@ -52,8 +56,9 @@ public class MarketThermometerBl implements MarketThermometerBlService{
 	 *  计算总交易量
 	 * @return 当日总交易量
 	 */
-	public double SumOfTrans(){
-		return thermometerVO.getTotalVolume();
+	public String SumOfTrans(){
+		DecimalFormat decimalFormat = new DecimalFormat("##.##");
+		return decimalFormat.format(thermometerVO.getTotalVolume());
 	}
 	/**
 	 * 设置当前日期的温度计的dataset

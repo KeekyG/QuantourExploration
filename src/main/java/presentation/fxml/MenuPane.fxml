@@ -140,7 +140,7 @@
             </AnchorPane>
          </left>
          <center>
-            <AnchorPane prefHeight="720.0" prefWidth="980.0" styleClass="center" stylesheets="@../../css/menu.css" BorderPane.alignment="CENTER" />
+            <AnchorPane fx:id="centerPane" prefHeight="720.0" prefWidth="980.0" styleClass="center" stylesheets="@../../css/menu.css" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
    </children>

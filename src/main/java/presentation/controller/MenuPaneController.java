@@ -86,6 +86,9 @@ public class MenuPaneController {
 
 	@FXML
 	private Button thermoButton;
+	
+	@FXML
+	private AnchorPane centerPane;
 
 	private ArrayList<Node> stockNodeList;
 
@@ -134,7 +137,9 @@ public class MenuPaneController {
 	@FXML
 	private void handleStockInquireButton() {
 		if(verifyStock(stockTextField) && verifyDateBefore(stockBeginDatePicker, stockEndDatePicker)) {
-			
+			AnchorPane pane = factory.getKMap(stockBeginDatePicker.getValue(), stockEndDatePicker.getValue(), stockTextField.getText());
+			centerPane.getChildren().clear();
+			centerPane.getChildren().add(pane);
 		}
 		
 	}
@@ -150,7 +155,9 @@ public class MenuPaneController {
 	@FXML
 	private void handleThermoInquireButton() {
 		if(verifyDate(thermoDatePicker)) {
-			
+			AnchorPane pane = factory.getThermo(thermoDatePicker.getValue());
+			centerPane.getChildren().clear();
+			centerPane.getChildren().add(pane);
 		}
 	}
 

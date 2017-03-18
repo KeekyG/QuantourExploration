@@ -90,7 +90,6 @@ public class StockDaoImpl implements StockDao{
 					stockUpDownPOs.add(new StockUpDownPO(Integer.parseInt(record.get("Serial")),date,Double.valueOf(record.get("Open")),
 							Double.valueOf(record.get("High")),Double.valueOf(record.get("Low")),Double.valueOf(record.get("Close")),
 		                	Long.parseLong(record.get("Volume")),Double.valueOf(record.get("Adj Close")),record.get("code"),record.get("name"),record.get("market")));
-				System.out.println(record.get("name"));
 				}
 			}
 				record.close();

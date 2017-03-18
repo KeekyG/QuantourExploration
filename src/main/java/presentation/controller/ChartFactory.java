@@ -2,30 +2,29 @@ package presentation.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
-
-import org.jfree.chart.JFreeChart;
-
 import bl.KMapBl;
+import bl.MarketThermometerBl;
 import bl.StockBl;
 import blService.KMapBlService;
+import blService.MarketThermometerBlService;
 import blService.StockBlService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import presentation.Runner;
-import presentation.fxml.KMapPaneController;
 import utility.TimeUtility;
 import utility.VerifyUtility;
 import vo.ShareLineVO;
-import vo.StockShareVO;
 
 public class ChartFactory {
 	
 	private StockBlService stockBl;
 	private KMapBlService kMapBl;
+	private MarketThermometerBlService marketThermometerBl;
 	
 	public ChartFactory() {
 		this.stockBl = new StockBl();
 		this.kMapBl = new KMapBl();
+		this.marketThermometerBl = new MarketThermometerBl();
 	}
 	
 	public AnchorPane getKMap(LocalDate beginDate, LocalDate endDate, String content) {
@@ -47,5 +46,22 @@ public class ChartFactory {
 		KMapPaneController controller = loader.getController();
 		
 		return controller.getAnchorPane(kMapBl.kTest(shareLineVO));
+	}
+	
+	public AnchorPane getThermo(LocalDate date) {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Runner.class.getResource("fxml/ThermoPane.fxml"));
+		AnchorPane anchorPane = null;
+		try {
+			anchorPane = (AnchorPane) loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("before");
+		ThermoPaneController controller = loader.getController();
+		System.out.println("after");
+		System.out.println(controller);
+		
+		return controller.getAnchorPane(marketThermometerBl.drawThermometer(TimeUtility.localDateToDate(date)));
 	}
 }

@@ -8,6 +8,5 @@ public interface MarketThermometerBlService {
 	
 	public JPanel drawThermometer(Date day);
 	
-	public double SumOfTrans();
 	
 }
