@@ -1,6 +1,7 @@
 package presentation.controller;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.SwingUtilities;
 
@@ -34,7 +35,7 @@ public class KMapPaneController {
             @Override
             public void run() {
             	ChartPanel panel = new ChartPanel(chart);
-            	panel.setSize(960, 640);
+            	panel.setMinimumSize(new Dimension(960, 640));
                 node.setContent(panel);
                 node.minWidth(640);
                 node.minHeight(960);

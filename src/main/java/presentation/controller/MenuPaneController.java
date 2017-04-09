@@ -147,7 +147,9 @@ public class MenuPaneController {
 	@FXML
 	private void handleCompareInquireButton() {
 		if(verifyStock(compareFirstTextField) && verifyStock(compareSecondTextField) && verifyDateBefore(compareBeginDatePicker, compareEndDatePicker)){
-			
+			AnchorPane pane = factory.getCompareResult(compareFirstTextField.getText(), compareSecondTextField.getText(), compareBeginDatePicker.getValue(), compareEndDatePicker.getValue());
+			centerPane.getChildren().clear();
+			centerPane.getChildren().add(pane);
 		}
 		
 	}

@@ -1,5 +1,7 @@
 package presentation.controller;
 
+import java.awt.Dimension;
+
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -33,7 +35,7 @@ public class ThermoPaneController {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-            	panel.setSize(960, 640);
+            	panel.setMinimumSize(new Dimension(960, 640));
                 node.setContent(panel);
                 node.minWidth(640);
                 node.minHeight(960);

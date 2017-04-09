@@ -30,6 +30,29 @@
                     </compilerArguments>
                 </configuration>
             </plugin>
+            <plugin>  
+                <artifactId>maven-assembly-plugin</artifactId>  
+                <configuration>  
+                    <appendAssemblyId>false</appendAssemblyId>  
+                    <descriptorRefs>  
+                        <descriptorRef>jar-with-dependencies</descriptorRef>  
+                    </descriptorRefs>  
+                    <archive>  
+                        <manifest>  
+                            <mainClass>presentation.Runner</mainClass>  
+                        </manifest>  
+                    </archive>  
+                </configuration>  
+                <executions>  
+                    <execution>  
+                        <id>make-assembly</id>  
+                        <phase>package</phase>  
+                        <goals>  
+                            <goal>assembly</goal>  
+                        </goals>  
+                    </execution>  
+                </executions>  
+            </plugin>
         </plugins>
    </build>
 
@@ -40,6 +63,14 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    
+    <!-- https://mvnrepository.com/artifact/junit/junit -->
+<dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.12</version>
+</dependency>
+    
     
     <!-- https://mvnrepository.com/artifact/jfree/jfreechart -->
     <dependency>
