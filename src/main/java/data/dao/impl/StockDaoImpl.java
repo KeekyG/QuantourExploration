@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.junit.experimental.theories.Theories;
 
 import com.csvreader.CsvReader;
 
@@ -17,13 +16,25 @@ import po.StockUpDownPO;
 
 public class StockDaoImpl implements StockDao{
 	
-	private String filePath = "f/all.csv";
+	private String filePath = "";
 	
 	public ArrayList<StockUpDownPO> getSearchStocks(Date start, Date end, String code) {
 		CsvReader record = null;
 		ArrayList<StockUpDownPO> stockUpDownPOs = new ArrayList<StockUpDownPO>();
 		//记录每一条有效股票的serial
 		int flag = 0;
+		if(code.startsWith("000")){
+			filePath = "f/all(mb).csv";
+		}
+		else if(code.startsWith("001")){
+			filePath = "f/all(mb).csv";
+		}
+		else if(code.startsWith("002")){
+			filePath = "f/all(sb).csv";
+		}
+		else if(code.startsWith("300")){
+			filePath = "f/all(gem).csv";
+		}
 		try{
 			record = new CsvReader(filePath, '	',Charset.forName("UTF8"));
 			record.readHeaders();
