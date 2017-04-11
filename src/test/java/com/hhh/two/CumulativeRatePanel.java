@@ -1,11 +1,13 @@
-package com.hhh;
+package com.hhh.two;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
@@ -27,6 +29,15 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 public class CumulativeRatePanel {
 	
+	public static void main(String args[]){
+		CumulativeRatePanel cumulativeRatePanel = new CumulativeRatePanel();
+		JFrame frame = new JFrame("");
+		frame.getContentPane().add(cumulativeRatePanel.createCumulativeRatePanel());
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+		frame.setSize(800, 600);
+		frame.setLocation(300, 400);
+	}
 	public CumulativeRatePanel() {
 		// TODO Auto-generated constructor stub
 	}
@@ -38,10 +49,30 @@ public class CumulativeRatePanel {
 	
 	private CategoryDataset createDateset(){
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		
+		ArrayList<Integer> data = setData();
+		int date = 0;
+		for(int temp: data){
+			dataset.addValue(temp, "策略", String.valueOf(++date));
+		}
+		date = 0;
+		data = setData();
+		for(int temp:data){
+			dataset.addValue(-temp, "基准", String.valueOf(++date));
+		}
 		return dataset;
 	}
 	
+	/**
+	 * 随机生成数据进行测试代码完成后记得删除
+	 * @return
+	 */
+	private ArrayList<Integer> setData(){
+		ArrayList<Integer> data = new ArrayList<>();
+		for(int i = 0; i < 50;i++){
+			data.add((int)(Math.random()*100));
+		}
+		return data;
+	}
 	private JFreeChart createChart(){
 
 		//修改文字编码格式
@@ -62,8 +93,8 @@ public class CumulativeRatePanel {
         
         JFreeChart jfreechart = ChartFactory.createLineChart(  
                 "累计收益率",// 图表标题  
-                "Date", // 主轴标签（x轴）  
-                "Price",// 范围轴标签（y轴）  
+                "", // 主轴标签（x轴）  
+                "",// 范围轴标签（y轴）  
                 categorydataset, // 数据集  
                 PlotOrientation.VERTICAL,// 方向  
                 true, // 是否包含图例  
@@ -75,7 +106,7 @@ public class CumulativeRatePanel {
         CategoryPlot categoryplot = (CategoryPlot) jfreechart.getPlot();  
         categoryplot.setBackgroundPaint(Color.lightGray);  
         categoryplot.setRangeGridlinePaint(Color.white);  
-        categoryplot.setRangeGridlinesVisible(false);  
+        categoryplot.setRangeGridlinesVisible(true);  
   
         //修改范围轴。 将默认刻度值 （允许显示小数） 改成只显示整数的刻度值。  
         NumberAxis numberaxis = (NumberAxis) categoryplot.getRangeAxis();  
