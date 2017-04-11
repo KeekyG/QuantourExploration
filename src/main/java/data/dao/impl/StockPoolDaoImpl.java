@@ -22,7 +22,7 @@ public class StockPoolDaoImpl implements StockPoolDao {
 
 	@Override
 	public ArrayList<String> getStockPoolNames() {
-		String filePath = "f/PoolName.txt";
+		String filePath = "target/f/PoolName.txt";
 		ArrayList<String> poolNames = new ArrayList<>();
 		File file = new File(filePath);
 		BufferedReader reader = null;
@@ -44,7 +44,7 @@ public class StockPoolDaoImpl implements StockPoolDao {
 
 	@Override
 	public boolean deleteStockPool(String name) {
-		String filePath = "f/PoolName.txt";
+		String filePath = "target/f/PoolName.txt";
 		File file = new File(filePath);
         BufferedReader reader = null;
         BufferedWriter writer = null;
@@ -75,7 +75,7 @@ public class StockPoolDaoImpl implements StockPoolDao {
 
 	@Override
 	public StockPoolPO getStockPool(String name) {
-		String filePath = "f/" + name +".csv";
+		String filePath = "target/f/" + name +".csv";
 		CsvReader reader = null;
 		HashMap<String, String> map = new HashMap<>();
 		try {
@@ -99,7 +99,7 @@ public class StockPoolDaoImpl implements StockPoolDao {
 	@Override
 	public boolean setStockPool(StockPoolPO stockPoolPO) {
 		//添加以股票池名称为名的csv文件
-		String filePath = "f/" + stockPoolPO.getName() + ".csv";
+		String filePath = "target/f/" + stockPoolPO.getName() + ".csv";
 		CsvWriter writer1 = new CsvWriter(filePath,'	',Charset.forName("UTF8"));
 		String[] headers = {"code","name"};
 		boolean set1 = false;
@@ -120,7 +120,7 @@ public class StockPoolDaoImpl implements StockPoolDao {
 			e.printStackTrace();
 		}
 		//将股票池名称写入PoolName的txt文件
-		File file = new File("f/PoolName.txt");
+		File file = new File("target/f/PoolName.txt");
 		BufferedReader reader = null;
         BufferedWriter writer2 = null;
         ArrayList<String> list = new ArrayList<>();

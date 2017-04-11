@@ -15,7 +15,7 @@ public class InterestDaoImpl implements InterestDao {
 	@Override
 	public InterestPO getInterest(String beginYear, String endYear) {
 		HashMap<String, Double> interests = new HashMap<>();
-		String filePath = "f/AnnualInterest.csv";
+		String filePath = "target/f/AnnualInterest.csv";
 		CsvReader record = null;
 		try {
 			record = new CsvReader(filePath, '	',Charset.forName("UTF8"));

@@ -24,16 +24,16 @@ public class StockDaoImpl implements StockDao{
 		//记录每一条有效股票的serial
 		int flag = 0;
 		if(code.startsWith("000")){
-			filePath = "f/all(mb).csv";
+			filePath = "target/f/all(mb).csv";
 		}
 		else if(code.startsWith("001")){
-			filePath = "f/all(mb).csv";
+			filePath = "target/f/all(mb).csv";
 		}
 		else if(code.startsWith("002")){
-			filePath = "f/all(sb).csv";
+			filePath = "target/f/all(sb).csv";
 		}
 		else if(code.startsWith("300")){
-			filePath = "f/all(gem).csv";
+			filePath = "target/f/all(gem).csv";
 		}
 		try{
 			record = new CsvReader(filePath, '	',Charset.forName("UTF8"));

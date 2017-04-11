@@ -19,13 +19,13 @@ public class BenchmarkDaoImpl implements BenchmarkDao {
 		HashMap<LocalDate, Double> rate = new HashMap<>();
 		String filePath = "";
 		if(type.equals(PlateType.HS300)){
-			filePath = "f/000300.csv";
+			filePath = "target/f/000300.csv";
 		}
 		else if(type.equals(PlateType.SME)){
-			filePath = "f/399005.csv";
+			filePath = "target/f/399005.csv";
 		}
 		else if(type.equals(PlateType.GEM)){
-			filePath = "f/399006.csv";
+			filePath = "target/f/399006.csv";
 		}
 		CsvReader record = null;
 		try {
@@ -35,7 +35,7 @@ public class BenchmarkDaoImpl implements BenchmarkDao {
 				record.getRawRecord();
 				LocalDate localDate = LocalDate.parse(record.get("日期"));
 				if(localDate.isAfter(beginDate) && localDate.isBefore(endDate)){
-					rate.put(localDate, Double.valueOf(record.get("涨跌幅")));
+					rate.put(localDate,Double.valueOf(record.get("涨跌幅")));
 				}
 			}
 			record.close();

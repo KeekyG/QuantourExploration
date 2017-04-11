@@ -13,7 +13,7 @@ import data.dao.StockNameDao;
 public class StockNameDaoImpl implements StockNameDao{
 	
 
-	private String filePath = "f/all.csv";
+	private String filePath = "target/f/all.csv";
 
 	public HashMap<String, String> getStockName() {
 		CsvReader record = null;
@@ -21,6 +21,7 @@ public class StockNameDaoImpl implements StockNameDao{
 		try {
 			record = new CsvReader(filePath, '	',Charset.forName("UTF8"));
 			record.readHeaders();
+			System.out.println(record.getHeaders());
 			while (record.readRecord()) {
 				record.getRawRecord();
 				if(!stockNames.containsKey(record.get("name"))){
