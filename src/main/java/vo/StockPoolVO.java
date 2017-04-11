@@ -1,5 +1,6 @@
 package vo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,10 +14,12 @@ import enums.StockPoolType;
  * type 股票池类型，分为自选和板块
  * name 股票池名称
  * capacity 股票池大小
+ * beginDate 开始时间
+ * endDate 结束时间
  * stocks 股票池中股票
  *
  */
-public class StockPoolVO {
+public class StockPoolVO extends StockSetVO {
 	
 	private StockPoolType type;
 	
@@ -24,17 +27,18 @@ public class StockPoolVO {
 	
 	private int capacity;
 	
-	private HashMap<String, ArrayList<ShareLineVO>> stocks;
-	
-	public StockPoolVO(StockPoolType type, String name, ArrayList<ShareLineVO> stocks) {
+	public StockPoolVO(StockPoolType type, String name, LocalDate beginDate, LocalDate endDate, ArrayList<ShareLineVO> stocks) {
+		super();
 		this.type = type;
 		this.name = name;
-		HashMap<String, ArrayList<ShareLineVO>> stockMap = new HashMap<>();
+		HashMap<String, ShareLineVO> stockMap = new HashMap<>();
 		for (ShareLineVO shareLineVO : stocks) {
-			stockMap.put(shareLineVO.getCode(), stocks);
+			stockMap.put(shareLineVO.getCode(), shareLineVO);
 		}
 		this.capacity = stockMap.size();
-		this.stocks = stockMap;
+		super.setBeginDate(beginDate);
+		super.setEndDate(endDate);
+		super.setStocks(stockMap);
 	}
 
 	public StockPoolType getType() {
@@ -43,10 +47,6 @@ public class StockPoolVO {
 
 	public String getName() {
 		return name;
-	}
-
-	public HashMap<String, ArrayList<ShareLineVO>> getStocks() {
-		return stocks;
 	}
 
 	public int getCapacity() {
