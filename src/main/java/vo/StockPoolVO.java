@@ -12,6 +12,7 @@ import enums.StockPoolType;
  * 
  * type 股票池类型，分为自选和板块
  * name 股票池名称
+ * capacity 股票池大小
  * stocks 股票池中股票
  *
  */
@@ -20,6 +21,8 @@ public class StockPoolVO {
 	private StockPoolType type;
 	
 	private String name;
+	
+	private int capacity;
 	
 	private HashMap<String, ArrayList<ShareLineVO>> stocks;
 	
@@ -30,6 +33,8 @@ public class StockPoolVO {
 		for (ShareLineVO shareLineVO : stocks) {
 			stockMap.put(shareLineVO.getCode(), stocks);
 		}
+		this.capacity = stockMap.size();
+		this.stocks = stockMap;
 	}
 
 	public StockPoolType getType() {
@@ -43,6 +48,10 @@ public class StockPoolVO {
 	public HashMap<String, ArrayList<ShareLineVO>> getStocks() {
 		return stocks;
 	}
-	
+
+	public int getCapacity() {
+		return capacity;
+	}
+
 	
 }
