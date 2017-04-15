@@ -87,6 +87,7 @@ public class StockDaoImpl implements StockDao{
 	public ArrayList<StockUpDownPO> getDailyStock(Date date) {
 		CsvReader record = null;
 		ArrayList<StockUpDownPO> stockUpDownPOs = new ArrayList<StockUpDownPO>();
+		filePath = "target/f/all.csv";
 		try{
 			record = new CsvReader(filePath, '	',Charset.forName("UTF8"));
 			record.readHeaders();
