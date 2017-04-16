@@ -37,10 +37,10 @@ public interface SelfStockPoolBlService {
 	
 	/**
 	 * 删除股票池
-	 * @param name 股票池名称
+	 * @param stockPoolName 股票池名称
 	 * @return 是否成功
 	 */
-	public boolean deleteStockPool();
+	public boolean deleteStockPool(String stockPoolName);
 	
 	/**
 	 * 删除股票池中的股票

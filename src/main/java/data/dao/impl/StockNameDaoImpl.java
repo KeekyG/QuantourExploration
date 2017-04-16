@@ -21,7 +21,6 @@ public class StockNameDaoImpl implements StockNameDao{
 		try {
 			record = new CsvReader(filePath, '	',Charset.forName("UTF8"));
 			record.readHeaders();
-			System.out.println(record.getHeaders());
 			while (record.readRecord()) {
 				record.getRawRecord();
 				if(!stockNames.containsKey(record.get("name"))){

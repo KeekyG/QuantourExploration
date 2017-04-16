@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import com.csvreader.CsvReader;
 import com.csvreader.CsvWriter;
@@ -45,32 +44,38 @@ public class StockPoolDaoImpl implements StockPoolDao {
 	@Override
 	public boolean deleteStockPool(String name) {
 		String filePath = "target/f/PoolName.txt";
-		File file = new File(filePath);
+		File file1 = new File(filePath);
         BufferedReader reader = null;
         BufferedWriter writer = null;
+        File file2 = new File("target/f/" + name + ".csv");
         ArrayList<String> list = new ArrayList<>();
-        boolean delete = false;
+        boolean delete1 = false;
+        boolean delete2 = false;
         try {
-            reader = new BufferedReader(new FileReader(file));
+        	//删除PoolName文件中的name
+            reader = new BufferedReader(new FileReader(file1));
             String r = "";
             while ((r = reader.readLine()) != null) {
             	list.add(r);
             }
             reader.close();
-            writer = new BufferedWriter(new FileWriter(file));
+            writer = new BufferedWriter(new FileWriter(file1));
             if(list.contains(name)){
             	list.remove(name);
-            	delete = true;
+            	delete1 = true;
             }
             for (String s : list) {
             	writer.write(s);
 				writer.newLine();
 			}
         	writer.close();
+        	//删除以name命名的csv文件
+        	delete2 = file2.delete();
         } catch (IOException e) {
             e.printStackTrace();
         }
-		return delete;
+        
+		return delete1&&delete2;
 	}
 
 	@Override
@@ -106,14 +111,14 @@ public class StockPoolDaoImpl implements StockPoolDao {
 		boolean set2 = false;
 		try {
 			writer1.writeRecord(headers);
-			Iterator<String> iterator = stockPoolPO.getStocks().keySet().iterator();
-			while(iterator.hasNext()){
-				String code = iterator.next();
-				String name = stockPoolPO.getStocks().get(code);
-				String[] contents = {code,name};
-				writer1.writeRecord(contents);
-			}
-			writer1.close();
+//			Iterator<String> iterator = stockPoolPO.getStocks().keySet().iterator();
+//			while(iterator.hasNext()){
+//				String code = iterator.next();
+//				String name = stockPoolPO.getStocks().get(code);
+//				String[] contents = {code,name};
+//				writer1.writeRecord(contents);
+//			}
+//			writer1.close();
 			set1 = true;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -131,7 +136,9 @@ public class StockPoolDaoImpl implements StockPoolDao {
             	list.add(r);
             }
             reader.close();
-            list.add(stockPoolPO.getName());
+            if(!list.contains(stockPoolPO.getName())){
+            	list.add(stockPoolPO.getName());
+            }
             writer2 = new BufferedWriter(new FileWriter(file));
             for (String s : list) {
             	writer2.write(s);
@@ -143,6 +150,82 @@ public class StockPoolDaoImpl implements StockPoolDao {
             e.printStackTrace();
         }
 		return set1&&set2;
+	}
+
+	@Override
+	public boolean addStock(String stockPoolName, String stockCode, String stockName) {
+		String filePath = "target/f/" + stockPoolName + ".csv";
+		CsvReader reader = null;
+		CsvWriter writer = null;
+		ArrayList<String[]> contents = new ArrayList<>();
+		boolean add1 = false;
+		boolean add2 = false;
+		try {
+			//从原csv文件中读出array
+			reader = new CsvReader(filePath,'	',Charset.forName("UTF8"));
+			reader.readHeaders();
+			while(reader.readRecord()){
+				reader.getRawRecord();
+				String[] s = {reader.get("code"),reader.get("name")};
+				contents.add(s);
+			}
+			reader.close();
+			add1 = true;
+			//将新内容写入array并写入新的csv文件(与前面读入的文件同名)
+			writer = new CsvWriter(filePath,'	',Charset.forName("UTF8"));
+			String[] headers = {"code","name"};
+			writer.writeRecord(headers);
+			String[] addStr = {stockCode,stockName};
+			contents.add(addStr);
+			for (String[] string : contents) {
+				writer.writeRecord(string);
+			}
+			writer.close();
+			add2 = true;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return add1&&add2;
+	}
+
+	@Override
+	public boolean deleteStock(String stockPoolName, String stockCode) {
+		String filePath = "target/f/" + stockPoolName + ".csv";
+		CsvReader reader = null;
+		CsvWriter writer = null;
+		boolean delete1 = false;
+		boolean delete2 = false;
+		ArrayList<String[]> contents = new ArrayList<>();
+		try {
+			//从原csv文件中读出array,遇到要删除的项则跳过
+			reader = new CsvReader(filePath,'	',Charset.forName("UTF8"));
+			reader.readHeaders();
+			while(reader.readRecord()){
+				reader.getRawRecord();
+				if(!reader.get("code").equals(stockCode)){
+					String[] s = {reader.get("code"),reader.get("name")};
+					contents.add(s);
+				}
+			}
+			reader.close();
+			delete1 = true;
+			writer = new CsvWriter(filePath,'	',Charset.forName("UTF8"));
+			String[] headers = {"code","name"};
+			writer.writeRecord(headers);
+			for (String[] string : contents) {
+				writer.writeRecord(string);
+			}
+			writer.close();
+			delete2 = true;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return delete1&&delete2;
 	}
 
 }

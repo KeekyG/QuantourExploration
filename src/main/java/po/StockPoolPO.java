@@ -29,12 +29,25 @@ public class StockPoolPO {
 	public String getName() {
 		return name;
 	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public int getCapacity() {
 		return capacity;
+	}
+	
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
 	}
 
 	public HashMap<String, String> getStocks() {
 		return stocks;
 	}
+	
+	public void setStocks(HashMap<String, String> stocks) {
+		this.stocks = stocks;
+	}
+	
 }

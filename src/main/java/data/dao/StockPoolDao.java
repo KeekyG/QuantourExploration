@@ -36,4 +36,24 @@ public interface StockPoolDao {
 	 * @return 是否成功
 	 */
 	public boolean setStockPool(StockPoolPO stockPoolPO);
+	
+	/**
+	 * 向已有股票池中添加一条股票信息
+	 * 
+	 * @param stockPoolName 股票池名称
+	 * @param stockCode 股票代码
+	 * @param stockName 股票名称
+	 * @return 是否成功
+	 */
+	public boolean addStock(String stockPoolName, String stockCode, String stockName);
+	
+	/**
+	 * 在已有股票池中删除一条股票信息
+	 * 
+	 * @param stockPoolName 股票池名称
+	 * @param stockCode 股票代码
+	 * @return 是否成功
+	 */
+	public boolean deleteStock(String stockPoolName, String stockCode);
+	
 }
