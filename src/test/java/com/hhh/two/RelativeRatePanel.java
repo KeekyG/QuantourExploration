@@ -1,14 +1,12 @@
 package com.hhh.two;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
@@ -17,8 +15,6 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.StandardChartTheme;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
-import org.jfree.chart.axis.DateAxis;
-import org.jfree.chart.axis.DateTickUnit;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
@@ -31,7 +27,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import vo.IncomeLineVO;
 import vo.PointVO;
 
-public class CumulativeRatePanel {
+public class RelativeRatePanel {
 	
 	private IncomeLineVO strategyVO;
 	private IncomeLineVO standardVO;
@@ -51,7 +47,7 @@ public class CumulativeRatePanel {
 	 * @param strategyVo	策略数据
 	 * @param standardVo	基准数据
 	 */
-	public CumulativeRatePanel(IncomeLineVO strategyVo, IncomeLineVO standardVo) {
+	public RelativeRatePanel(IncomeLineVO strategyVo, IncomeLineVO standardVo) {
 		// TODO Auto-generated constructor stub
 		this.standardVO = standardVo;
 		this.strategyVO = strategyVo;
@@ -117,8 +113,8 @@ public class CumulativeRatePanel {
         
         CategoryDataset categorydataset= createDateset();
         
-        JFreeChart jfreechart = ChartFactory.createLineChart(  
-                "累计收益率",// 图表标题  
+        JFreeChart jfreechart = ChartFactory.createBarChart(  
+                "相对指数收益分布率",// 图表标题  
                 "", // 主轴标签（x轴）  
                 "",// 范围轴标签（y轴）  
                 categorydataset, // 数据集  
