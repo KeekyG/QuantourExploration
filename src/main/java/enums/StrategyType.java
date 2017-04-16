@@ -9,7 +9,7 @@ package enums;
  * MEAN_REVERSION 均值回归
  *
  */
-public enum StategyType {
+public enum StrategyType {
 	MOMENTUM,
 	MEAN_REVERSION
 }
