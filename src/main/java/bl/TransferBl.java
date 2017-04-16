@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import blService.TransferBlService;
+import po.StockPoolPO;
 import po.StockUpDownPO;
 import vo.DailyStockVO;
+import vo.SelfSelectStockPoolVO;
 import vo.ShareLineVO;
 import vo.StockShareVO;
 
@@ -24,6 +26,11 @@ public class TransferBl implements TransferBlService {
 	@Override
 	public ShareLineVO toShareLineVO(ArrayList<StockShareVO> shareVOs, Date beginDate, Date endDate, String code, String name, StockShareVO yesterdayShare) {
 		return new ShareLineVO(shareVOs, beginDate, endDate, code, name, yesterdayShare);
+	}
+
+	@Override
+	public SelfSelectStockPoolVO toSelfSelectStockPoolVO(StockPoolPO stockPoolPO) {
+		return new SelfSelectStockPoolVO(stockPoolPO.getName(), stockPoolPO.getStocks());
 	}
 
 }
