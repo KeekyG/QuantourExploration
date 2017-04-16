@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import enums.PlateType;
 import vo.IncomeLineVO;
 
-public interface BenchMarkBlService {
+public interface BenchmarkBlService {
 	
 	/**
 	 * 获取股票基准指标信息
@@ -13,5 +13,5 @@ public interface BenchMarkBlService {
 	 * @param endDate
 	 * @return
 	 */
-	public IncomeLineVO getBenchMark(PlateType type, LocalDate beginDate, LocalDate endDate);
+	public IncomeLineVO getBenchmark(PlateType type, LocalDate beginDate, LocalDate endDate);
 }
