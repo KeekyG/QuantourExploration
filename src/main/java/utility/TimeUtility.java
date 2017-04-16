@@ -19,4 +19,8 @@ public class TimeUtility {
 		return new Date(localDate.getYear()-1900, localDate.getMonthValue()-1, localDate.getDayOfMonth());
 	}
 	
+	public static LocalDate dateToLocalDate(Date date) {
+		return LocalDate.of(date.getYear()+1900, date.getMonth()+1, date.getDate());
+	}
+	
 }
