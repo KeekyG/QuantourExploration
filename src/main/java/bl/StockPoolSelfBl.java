@@ -4,14 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-
 import blService.SelfStockPoolBlService;
 import blService.StockBlService;
 import blService.StockPoolBlService;
 import enums.StockPoolType;
 import utility.TimeUtility;
-import vo.SelfSelectStockPoolVO;
 import vo.ShareLineVO;
 import vo.StockPoolVO;
 import vo.StockShareVO;
