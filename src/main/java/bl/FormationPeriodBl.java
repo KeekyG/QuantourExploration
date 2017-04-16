@@ -26,8 +26,8 @@ public class FormationPeriodBl implements FormationPeriodBlService {
 		ArrayList<ArrayList<LocalDate>> periods = new ArrayList<>();
 		ArrayList<LocalDate> dateList = stockPool.getDateList();
 		int size = dateList.size();
-		int times = size / (formationDays + holdingDays);
-		for (int i = 0; i < size; i+=(formationDays+holdingDays)) {
+		int times = (size - formationDays) / holdingDays;
+		for (int i = 0; i < size; i+=holdingDays) {
 			List<LocalDate> subList = dateList.subList(i, i+formationDays+holdingDays);
 			ArrayList<LocalDate> innerList = new ArrayList<>();
 			for (LocalDate localDate : subList) {
