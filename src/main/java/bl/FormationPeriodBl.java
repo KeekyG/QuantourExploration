@@ -59,7 +59,7 @@ public class FormationPeriodBl implements FormationPeriodBlService {
 				}
 				if (index > -1 && (index + formationDays) <= singleStockLine.size() && TimeUtility.localDateToDate(period.get(period.size()-1)).equals(singleStockLine.get(index+formationDays+holdingDays-1))) {
 					ArrayList<StockShareVO> formationStocks = new ArrayList<>();
-					for (int i = index; i < index + formationDays; i++) {
+					for (int i = index; i < index + period.size(); i++) {
 						formationStocks.add(singleStockLine.get(i));
 					}
 					stockMap.put(code, new ShareLineVO(formationStocks, singleStockLine.getBeginDate(), singleStockLine.getEndDate(), code, singleStockLine.getName(), singleStockLine.getYesterdayShare()));
@@ -74,4 +74,52 @@ public class FormationPeriodBl implements FormationPeriodBlService {
 		return fomationPeriods;
 	}
 
+	@Override
+	public ArrayList<FormationPeriodStockVO> splitToFormations(ArrayList<FormationPeriodStockVO> stockPeriods,
+			int formationDays, int holdingDays) {
+		ArrayList<FormationPeriodStockVO> formationList = new ArrayList<>();
+		for (FormationPeriodStockVO formationPeriodStockVO : stockPeriods) {
+			HashMap<String, ShareLineVO> stockMap = new HashMap<>();
+			Iterator<String> iterator = formationPeriodStockVO.getStocks().keySet().iterator();
+			LocalDate endDate = null;
+			while (iterator.hasNext()) {
+				String code = (String) iterator.next();
+				ShareLineVO shareLineVO  = formationPeriodStockVO.getStocks().get(code);
+				ArrayList<StockShareVO> shareVOs = new ArrayList<>();
+				for (int i = 0; i < formationDays; i++) {
+					shareVOs.add(shareLineVO.get(i));
+				}
+				endDate = TimeUtility.dateToLocalDate(shareVOs.get(shareVOs.size()-1).getDate());
+				stockMap.put(code, new ShareLineVO(shareVOs, shareLineVO.getBeginDate(), shareVOs.get(shareVOs.size()-1).getDate(), code, shareLineVO.getName(), shareLineVO.getYesterdayShare()));
+			}
+			formationList.add(new FormationPeriodStockVO(formationPeriodStockVO.getBeginDate(), endDate, stockMap));		
+		}
+		
+		return formationList;
+	}
+
+	@Override
+	public ArrayList<FormationPeriodStockVO> splitToHoldings(ArrayList<FormationPeriodStockVO> stockPeriods,
+			int formationDays, int holdingDays) {
+		ArrayList<FormationPeriodStockVO> holdingList = new ArrayList<>();
+		for (FormationPeriodStockVO formationPeriodStockVO : stockPeriods) {
+			HashMap<String, ShareLineVO> stockMap = new HashMap<>();
+			Iterator<String> iterator = formationPeriodStockVO.getStocks().keySet().iterator();
+			LocalDate beginDate = null;
+			while (iterator.hasNext()) {
+				String code = (String) iterator.next();
+				ShareLineVO shareLineVO  = formationPeriodStockVO.getStocks().get(code);
+				ArrayList<StockShareVO> shareVOs = new ArrayList<>();
+				for (int i = formationDays; i < shareLineVO.size(); i++) {
+					shareVOs.add(shareLineVO.get(i));
+				}
+				beginDate = TimeUtility.dateToLocalDate(shareVOs.get(formationDays).getDate());
+				stockMap.put(code, new ShareLineVO(shareVOs, shareVOs.get(0).getDate(), shareLineVO.getEndDate(), code, shareLineVO.getName(), shareLineVO.getYesterdayShare()));
+			}
+			holdingList.add(new FormationPeriodStockVO(beginDate, formationPeriodStockVO.getEndDate(), stockMap));		
+		}
+		
+		return holdingList;
+	}
+	
 }
