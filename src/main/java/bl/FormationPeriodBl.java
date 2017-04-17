@@ -35,7 +35,7 @@ public class FormationPeriodBl implements FormationPeriodBlService {
 			}
 		}
 		if (((size - formationDays) % formationDays + holdingDays) > 0) {
-			List<LocalDate> subList = dateList.subList(times*holdingDays+formationDays-1, size);
+			List<LocalDate> subList = dateList.subList(times*holdingDays+formationDays, size);
 			ArrayList<LocalDate> innerList = new ArrayList<>();
 			for (LocalDate localDate : subList) {
 				innerList.add(localDate);
