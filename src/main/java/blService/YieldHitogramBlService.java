@@ -7,6 +7,8 @@ import vo.IncomeLineVO;
 
 public interface YieldHitogramBlService {
 	
+	
+	
 	/**
 	 * @param strategyRates 策略收益率
 	 * @param baseRates 基准收益率
