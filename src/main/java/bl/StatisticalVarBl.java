@@ -1,26 +1,26 @@
 package bl;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import blService.StatisticalVarBlService;
 import po.InterestPO;
+import vo.IncomeLineVO;
 import vo.PointVO;
 
 public class StatisticalVarBl implements StatisticalVarBlService{
 
 	@Override
-	public double getStrategyAnnualRate(ArrayList<PointVO> strategyRates) {
+	public double getStrategyAnnualRate(IncomeLineVO strategyRates) {
 		return (strategyRates.get(strategyRates.size()-1).getRate() / strategyRates.size()) * 365;
 	}
 
 	@Override
-	public double getBaseAnnualRate(ArrayList<PointVO> baseRates) {
+	public double getBaseAnnualRate(IncomeLineVO baseRates) {
 		return (baseRates.get(baseRates.size()-1).getRate() / baseRates.size()) * 365;
 	}
 
 	@Override
-	public double getAlpha(InterestPO interestPO, ArrayList<PointVO> strategyRates, ArrayList<PointVO> baseRates) {
+	public double getAlpha(InterestPO interestPO, IncomeLineVO strategyRates, IncomeLineVO baseRates) {
 		//计算无风险利率
 		Iterator<String> iterator = interestPO.getInterests().keySet().iterator();
 		double rate_interest = 0;
@@ -33,7 +33,7 @@ public class StatisticalVarBl implements StatisticalVarBlService{
 	}
 
 	@Override
-	public double getBeta(ArrayList<PointVO> strategyRates, ArrayList<PointVO> baseRates) {
+	public double getBeta(IncomeLineVO strategyRates, IncomeLineVO baseRates) {
 		//策略收益率与基准收益率的协方差
 		double cov_SB = 0;
 		//基准收益率的方差
@@ -65,7 +65,7 @@ public class StatisticalVarBl implements StatisticalVarBlService{
 	}
 
 	@Override
-	public double getSharpeRatio(ArrayList<PointVO> strategyRates, InterestPO interestPO) {
+	public double getSharpeRatio(IncomeLineVO strategyRates, InterestPO interestPO) {
 		//策略收益率的标准差
 		double s_S = 0;
 		
@@ -89,18 +89,54 @@ public class StatisticalVarBl implements StatisticalVarBlService{
 	}
 
 	@Override
-	public double getMaxDrawDown(ArrayList<PointVO> strategyRates) {
+	public double getMaxDrawDown(IncomeLineVO strategyRates) {
 		double maxDrawDown = 0;
+		double maxTmp = 0;
 		double beginRate = strategyRates.get(0).getRate();
 		double endRate = strategyRates.get(1).getRate();
+		double beforeEndRate = 0;
 		int flag = 1;
-		while(flag != strategyRates.size())
+		while(flag < strategyRates.size()){
+			if(maxTmp > maxDrawDown){
+				maxDrawDown = maxTmp;
+			}
 			if(endRate < beginRate){
 				maxDrawDown = beginRate - endRate;
-				endRate = strategyRates.get(flag+1).getRate();
+				flag++;
+				endRate = strategyRates.get(flag).getRate();
+				beforeEndRate = strategyRates.get(flag-1).getRate();
+				if(beforeEndRate < endRate){
+					if(maxTmp < maxDrawDown){
+						maxTmp = maxDrawDown;
+					}
+					beginRate = endRate;
+					flag++;
+					endRate = strategyRates.get(flag).getRate();
+					beforeEndRate = strategyRates.get(flag-1).getRate();
+				}
+				else{
+					maxDrawDown = beginRate - endRate;
+					flag++;
+					if(flag < strategyRates.size()){
+						endRate = strategyRates.get(flag).getRate();
+						beforeEndRate = strategyRates.get(flag-1).getRate();
+					}
+				}
+			}
+			else{
+				beginRate = endRate;
+				flag++;
+				if(flag < strategyRates.size()){
+					endRate = strategyRates.get(flag).getRate();
+					beforeEndRate = strategyRates.get(flag-1).getRate();
+				}
 			}
 			
-		return 0;
+		}
+		if(maxTmp > maxDrawDown){
+			maxDrawDown = maxTmp;
+		}
+		return maxDrawDown;
 	}
 
 }
