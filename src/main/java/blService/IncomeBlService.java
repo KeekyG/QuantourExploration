@@ -19,14 +19,14 @@ public interface IncomeBlService {
 	/**
 	 * 计算股票池的平均收益作为基准收益
 	 * @param stockPoolVO 股票池
-	 * @return 累计收益
+	 * @return 收益
 	 */
 	public IncomeLineVO calculateAverageIncome(StockPoolVO stockPoolVO);
 	
 	/**
 	 * 计算累计收益率
 	 * @param incomeLineVO 每天的收益
-	 * @return 累计基准收益率
+	 * @return 基准收益率
 	 */
 	public IncomeLineVO calculateTotalRate(IncomeLineVO incomeLineVO);
 	

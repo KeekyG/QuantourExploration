@@ -51,7 +51,7 @@ public class IncomeBl implements IncomeBlService {
 			}
 			
 		}
-		return calculateTotalRate(new IncomeLineVO(incomeMap));
+		return new IncomeLineVO(incomeMap);
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public class IncomeBl implements IncomeBlService {
 			incomeMap.put(localDate, incomeMap.get(localDate) / (double) volumeMap.get(localDate));
 		}
 		
-		return calculateTotalRate(new IncomeLineVO(incomeMap));
+		return new IncomeLineVO(incomeMap);
 	}
 
 }
