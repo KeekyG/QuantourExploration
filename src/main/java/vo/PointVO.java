@@ -30,5 +30,9 @@ public class PointVO {
 		return rate;
 	}
 	
+	public void setRate(double rate) {
+		this.rate = rate;
+	}
+	
 	
 }

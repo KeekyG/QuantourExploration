@@ -40,6 +40,7 @@ public class IncomeLineVO extends ArrayList<PointVO> {
 				endDate = localDate;
 			}
 		}
+		this.sort((a, b) -> a.getDate().isBefore(b.getDate()) ? -1 : 1);
 	}
 	
 	public LocalDate getBeginDate() {
